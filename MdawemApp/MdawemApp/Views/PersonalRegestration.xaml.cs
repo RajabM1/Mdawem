@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace MdawemApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Regestration : ContentPage
+    public partial class PersonalRegestration : ContentPage
     {
-        public Regestration()
+        public PersonalRegestration()
         {
             InitializeComponent();
         }

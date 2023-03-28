@@ -14,7 +14,7 @@
                         <local:FlyoutItemPage Title="Month Tracker" IconSource="calendar.png" TargetPage="{x:Type localViews:MonthTracker}"></local:FlyoutItemPage>
                         <local:FlyoutItemPage Title="Leave Tracker" IconSource="Leave.png" TargetPage="{x:Type localViews:Leaves}"></local:FlyoutItemPage>
                         <local:FlyoutItemPage Title="Employee Tracker" IconSource="map.png" TargetPage="{x:Type localViews:Map}"></local:FlyoutItemPage>
-                        <local:FlyoutItemPage Title="Registration" IconSource="registration.png" TargetPage="{x:Type localViews:Regestration}"></local:FlyoutItemPage>
+                    <local:FlyoutItemPage Title="Registration" IconSource="registration.png" TargetPage="{x:Type localViews:PersonalRegestration}"></local:FlyoutItemPage>
                     </x:Array>
                 </ListView.ItemsSource>
                 <ListView.ItemTemplate>

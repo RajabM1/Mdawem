@@ -15,10 +15,13 @@
         </Style>
         <Style TargetType="StackLayout">
             <Setter Property="Background" Value="white"/>
+            <Setter Property="Margin" Value="20"/>
         </Style>
         <Style TargetType="Entry">
             <Setter Property="PlaceholderColor" Value="Gray"/>
             <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,0"/>
         </Style>
         <Style TargetType="Frame">
             <Setter Property="BorderColor" Value="Gray"/>
@@ -31,6 +34,10 @@
             <Setter Property="TextColor" Value="White"/>
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Color" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+        
     </Application.Resources>
 
 </Application>
