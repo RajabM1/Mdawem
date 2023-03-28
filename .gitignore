@@ -1,0 +1,66 @@
+# Xamarin.Android specific
+*.apk
+*.ap_
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+[Aa]rtifacts/
+[Ll]ogs/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+packages/
+platforms/
+Generated_Code/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Resharper files
+_ReSharper.*
+
+# Build and publish web project
+*.Publish.xml
+*.pubxml
+*.publishproj
+
+# NuGet packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUNIT
+*.VisualState.xml
+TestResult.xml
+
+# Xamarin Test Cloud
+test-cloud.exe
+*-manifest.xml
+
+# Build Folders 
+[Bb]uild/
+
+# Folders to ignore
+node_modules/
+.idea/
+.svn/
+.vscode/
