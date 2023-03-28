@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MdawemApp.Views.TabbedPage1"
+             xmlns:local="clr-namespace:MdawemApp.Views"
+             NavigationPage.HasNavigationBar="False"
+             BarBackgroundColor="#f4f3f3"
+             SelectedTabColor="Black"
+             UnselectedTabColor="#555151"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+            >
+    <!--
+    <local:HomePage IconImageSource="home.png" />
+    <local:ProfilePage IconImageSource="profile.png" Title="Profile"/>
+    <local:notificationPage IconImageSource="notification.png" Title="Notification"/>
+    
+    <NavigationPage Title="Menu" IconImageSource="menu.png">
+        <x:Arguments>
+            <local:FlyoutPage1Flyout x:Name="flyout" Title="MENU"/>
+        </x:Arguments>
+    </NavigationPage>
+    -->
+</TabbedPage>
