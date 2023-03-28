@@ -16,5 +16,10 @@ namespace MdawemApp.Views
         {
             InitializeComponent();
         }
+
+        private void NextPage(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new WorkRegestration());
+        }
     }
 }

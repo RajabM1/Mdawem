@@ -5,9 +5,43 @@
              Title="Regestration">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Regestration Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid Padding="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" Padding="0">
+                    <Entry Placeholder="Fist Name"/>
+                </Frame>
+                <Frame Grid.Column="1" Padding="0">
+                    <Entry Placeholder="Last Name"/>
+                </Frame>
+            </Grid>
+            <StackLayout>
+                <Frame Padding="0">
+                    <Entry Placeholder="Email "  />
+                </Frame>
+                <Frame Padding="0">
+                    <Entry Placeholder=" Password" IsPassword="True"/>
+                </Frame>
+                <Label Text="Date Of Birth"/>
+                <Frame Padding="0">
+                    <DatePicker FontSize="15" Margin="10,0" MinimumDate="01/01/2018" MaximumDate="12/31/2018" Date="06/21/2018" />
+                </Frame>
+                <Frame Padding="0" >
+                    <Entry Placeholder="Address"/>
+                </Frame>
+
+                <Frame Padding="0">
+                    <Entry Placeholder="Phone Number"/>
+                </Frame>
+
+            </StackLayout>
+            <Button Text="Next" Margin="10" Clicked="NextPage"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
