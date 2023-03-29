@@ -32,7 +32,10 @@ namespace MdawemApp.Views
                 string token = await firebaseHelper.Login(email, pass);
                 if (!string.IsNullOrEmpty(token))
                 {
-                    await Navigation.PushAsync(new TabbedPage());
+                    var tabbedPage = new TabbedPage1();
+                    tabbedPage.CurrentPage = tabbedPage.Children[0]; // Set the second page as the current page
+                    //MainPage = tabbedPage;
+                    await Navigation.PushAsync(tabbedPage);
                 }
             }
         }
@@ -73,7 +76,10 @@ namespace MdawemApp.Views
                 string token = await firebaseHelper.Login(email, password);
                 if (!string.IsNullOrEmpty(token))
                 {
-                    await Navigation.PushAsync(new TabbedPage());
+                    var tabbedPage = new TabbedPage1();
+                    tabbedPage.CurrentPage = tabbedPage.Children[0]; // Set the second page as the current page
+                    //MainPage = tabbedPage;
+                    await Navigation.PushAsync(tabbedPage);
                 }
                 else
                 {

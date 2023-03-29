@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MdawemApp.Helper;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,11 +16,14 @@ namespace MdawemApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FlyoutPage1Flyout : ContentPage
     {
+        FirebaseHelper firebaseHelper;
+
         public ListView ListView;
 
         public FlyoutPage1Flyout()
         {
             InitializeComponent();
+            firebaseHelper = new FirebaseHelper();
         }
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -29,6 +33,13 @@ namespace MdawemApp.Views
                 listview.SelectedItem = null;
 
             }
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+           firebaseHelper.SignOut();
+           await Navigation.PushAsync(new LogInPage());
+
         }
     }
 

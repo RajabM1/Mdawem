@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:MdawemApp.ViewModels" x:DataType="viewmodels:PersonalRegistrationViewModels"
              x:Class="MdawemApp.Views.PersonalRegestration"
              Title="Regestration">
     <ContentPage.Content>
@@ -8,7 +8,7 @@
             <Grid Padding="0" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -17,11 +17,12 @@
                 <Frame Grid.Column="0" Padding="0">
                     <Entry Placeholder="Fist Name" Text="{Binding FirstName}"/>
                 </Frame>
-                <Label Text="Invalid first name" TextColor="Red" IsVisible="{Binding FirstNameFlag}"></Label>
+                <Label Grid.Column="0" Grid.Row="1" Text="Invalid first name" TextColor="Red" IsVisible="{Binding FirstNameFlag}"></Label>
+
                 <Frame Grid.Column="1" Padding="0">
                     <Entry Placeholder="Last Name" Text="{Binding LastName}"/>
                 </Frame>
-                <Label Text="Invalid last name" TextColor="Red" IsVisible="{Binding LastNameFlag}"></Label>
+                <Label Grid.Column="1" Grid.Row="1" Text="Invalid last name" TextColor="Red" IsVisible="{Binding LastNameFlag}"></Label>
             </Grid>
             <StackLayout>
                 <Frame Padding="0">
@@ -34,7 +35,7 @@
                 <Label Text="Invalid password" TextColor="Red" IsVisible="{Binding PasswordFlag}"></Label>
                 <Label Text="Date Of Birth"/>
                 <Frame Padding="0">
-                    <DatePicker FontSize="15" Margin="10,0" MinimumDate="01/01/2018" MaximumDate="12/31/2018" Date="06/21/2018" TextColor="Gray" />
+                    <DatePicker FontSize="15" Margin="10,0" MinimumDate="01/01/1970" MaximumDate="12/31/2023" Date="06/21/2018" TextColor="Gray" />
                 </Frame>
                 <Frame Padding="0" >
                     <Entry Placeholder="Address"/>

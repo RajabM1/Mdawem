@@ -37,7 +37,7 @@ namespace MdawemApp.Helper
         {
             Application.Current.Properties.Remove("emailtxt");
             Application.Current.Properties.Remove("passwordtxt");
-		}
+        }
         public async Task<bool> Register(string email, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
@@ -48,3 +48,4 @@ namespace MdawemApp.Helper
             return false;
         }
     }
+}

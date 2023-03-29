@@ -131,6 +131,7 @@ namespace MdawemApp.ViewModels
                 "https://mdawemt-default-rtdb.firebaseio.com/"
             );
                 await client.Child("Employees").PostAsync(data);
+                await App.Current.MainPage.DisplayAlert("Success", "Saved Success", "Done");
             }
             else
             {

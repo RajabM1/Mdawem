@@ -2,45 +2,45 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MdawemApp.Views.LogInPage"
-             Title="Log In"
              >
     <ContentPage.Content>
         <StackLayout>
-            <Grid RowSpacing="25"
+            <Grid 
               RowDefinitions="Auto,Auto,Auto,Auto">
                 <StackLayout Grid.Row="4">
-                    <Image Source="Login1"
+                    <Image Source="Logo"
                        HeightRequest="180"/>
                     <Frame 
                        BackgroundColor="#FF5733"
                        Margin="15"
                        Padding="0"
-                       CornerRadius="50">
+                       >
                         <Frame 
                        BackgroundColor="White"
-                       Margin="5"
+                       Margin="3"
                        Padding="25,0,25,0"
                        HeightRequest="60"
-                       CornerRadius="50">
+                       >
                             <Entry TextColor="Black"
                             FontSize="Default"
                             Margin="0,-10,0,-10"
                             Placeholder="Enter your Email"
                             PlaceholderColor="Black"
-                                   x:Name="emailtxt"/>
+                                   x:Name="emailtxt"
+                                   WidthRequest="15"/>
                         </Frame>
                     </Frame>
                     <Frame 
                        BackgroundColor="#FF5733"
                        Margin="15"
                        Padding="0"
-                       CornerRadius="50">
+                       >
                         <Frame 
-                       BackgroundColor="White"
-                       Margin="5"
+                        BackgroundColor="White"
+                       Margin="3"
                        Padding="25,0,25,0"
                        HeightRequest="60"
-                       CornerRadius="50">
+                       >
                             <Entry TextColor="Black"
                             FontSize="Default"
                             Placeholder="Enter your Password"
@@ -50,7 +50,7 @@
                                     x:Name="passwordtxt"/>
                         </Frame>
                     </Frame>
-                    <RelativeLayout Padding="25">
+                    <RelativeLayout Padding="10">
                         <CheckBox 
                         Color="#FF5733"
                         IsChecked="False"
@@ -62,7 +62,7 @@
                         TextColor="Black"
                         FontSize="Default"
                         RelativeLayout.XConstraint="45"
-                        RelativeLayout.YConstraint="3"/>
+                        RelativeLayout.YConstraint="5"/>
 
                         <Button
                         x:Name="ForgetPasswordButton"
@@ -70,7 +70,7 @@
                         TextColor="Black"
                         FontSize="Default"
                         BackgroundColor="Transparent"
-                        RelativeLayout.XConstraint="205"
+                        RelativeLayout.XConstraint="175"
                         RelativeLayout.YConstraint="-8"
        
                         TextTransform="None"/>
@@ -85,7 +85,6 @@
                     Margin="10,0,10,0"
                     Clicked="btnlogin_Clicked"
                     HeightRequest="60"
-                    CornerRadius="50"
                     BackgroundColor="#FF5733"/>
                 </StackLayout>
             </Grid>
