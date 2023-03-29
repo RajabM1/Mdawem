@@ -6,9 +6,90 @@
              >
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to LogIn Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid RowSpacing="25"
+              RowDefinitions="Auto,Auto,Auto,Auto">
+                <StackLayout Grid.Row="4">
+                    <Image Source="Login1"
+                       HeightRequest="180"/>
+                    <Frame 
+                       BackgroundColor="#FF5733"
+                       Margin="15"
+                       Padding="0"
+                       CornerRadius="50">
+                        <Frame 
+                       BackgroundColor="White"
+                       Margin="5"
+                       Padding="25,0,25,0"
+                       HeightRequest="60"
+                       CornerRadius="50">
+                            <Entry TextColor="Black"
+                            FontSize="Default"
+                            Margin="0,-10,0,-10"
+                            Placeholder="Enter your Email"
+                            PlaceholderColor="Black"
+                                   x:Name="emailtxt"/>
+                        </Frame>
+                    </Frame>
+                    <Frame 
+                       BackgroundColor="#FF5733"
+                       Margin="15"
+                       Padding="0"
+                       CornerRadius="50">
+                        <Frame 
+                       BackgroundColor="White"
+                       Margin="5"
+                       Padding="25,0,25,0"
+                       HeightRequest="60"
+                       CornerRadius="50">
+                            <Entry TextColor="Black"
+                            FontSize="Default"
+                            Placeholder="Enter your Password"
+                            PlaceholderColor="Black"
+                            Margin="0,-10,0,-10"
+                            IsPassword="True"
+                                    x:Name="passwordtxt"/>
+                        </Frame>
+                    </Frame>
+                    <RelativeLayout Padding="25">
+                        <CheckBox 
+                        Color="#FF5733"
+                        IsChecked="False"
+                        
+                        x:Name="RememberMeCheckBox"
+                        Margin="15,0,0,0"/>
+                        <Label
+                        Text="Remember Me"
+                        TextColor="Black"
+                        FontSize="Default"
+                        RelativeLayout.XConstraint="45"
+                        RelativeLayout.YConstraint="3"/>
+
+                        <Button
+                        x:Name="ForgetPasswordButton"
+                        Text="Forget Password?"
+                        TextColor="Black"
+                        FontSize="Default"
+                        BackgroundColor="Transparent"
+                        RelativeLayout.XConstraint="205"
+                        RelativeLayout.YConstraint="-8"
+       
+                        TextTransform="None"/>
+                    </RelativeLayout>
+                    <Button
+                    x:Name="LogInButton"
+                    Text="Log In"
+                    TextColor="White"   
+                    FontSize="Medium"
+                    BorderWidth="1"
+                    BorderColor="Black"
+                    Margin="10,0,10,0"
+                    Clicked="btnlogin_Clicked"
+                    HeightRequest="60"
+                    CornerRadius="50"
+                    BackgroundColor="#FF5733"/>
+                </StackLayout>
+            </Grid>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
