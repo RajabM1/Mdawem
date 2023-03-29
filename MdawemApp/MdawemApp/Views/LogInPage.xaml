@@ -2,13 +2,93 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MdawemApp.Views.LogInPage"
-             Title="Log In"
              >
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to LogIn Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid 
+              RowDefinitions="Auto,Auto,Auto,Auto">
+                <StackLayout Grid.Row="4">
+                    <Image Source="Logo"
+                       HeightRequest="180"/>
+                    <Frame 
+                       BackgroundColor="#FF5733"
+                       Margin="15"
+                       Padding="0"
+                       >
+                        <Frame 
+                       BackgroundColor="White"
+                       Margin="3"
+                       Padding="25,0,25,0"
+                       HeightRequest="60"
+                       >
+                            <Entry TextColor="Black"
+                            FontSize="Default"
+                            Margin="0,-10,0,-10"
+                            Placeholder="Enter your Email"
+                            PlaceholderColor="Black"
+                                   x:Name="emailtxt"
+                                   WidthRequest="15"/>
+                        </Frame>
+                    </Frame>
+                    <Frame 
+                       BackgroundColor="#FF5733"
+                       Margin="15"
+                       Padding="0"
+                       >
+                        <Frame 
+                        BackgroundColor="White"
+                       Margin="3"
+                       Padding="25,0,25,0"
+                       HeightRequest="60"
+                       >
+                            <Entry TextColor="Black"
+                            FontSize="Default"
+                            Placeholder="Enter your Password"
+                            PlaceholderColor="Black"
+                            Margin="0,-10,0,-10"
+                            IsPassword="True"
+                                    x:Name="passwordtxt"/>
+                        </Frame>
+                    </Frame>
+                    <RelativeLayout Padding="10">
+                        <CheckBox 
+                        Color="#FF5733"
+                        IsChecked="False"
+                        
+                        x:Name="RememberMeCheckBox"
+                        Margin="15,0,0,0"/>
+                        <Label
+                        Text="Remember Me"
+                        TextColor="Black"
+                        FontSize="Default"
+                        RelativeLayout.XConstraint="45"
+                        RelativeLayout.YConstraint="5"/>
+
+                        <Button
+                        x:Name="ForgetPasswordButton"
+                        Text="Forget Password?"
+                        TextColor="Black"
+                        FontSize="Default"
+                        BackgroundColor="Transparent"
+                        RelativeLayout.XConstraint="175"
+                        RelativeLayout.YConstraint="-8"
+       
+                        TextTransform="None"/>
+                    </RelativeLayout>
+                    <Button
+                    x:Name="LogInButton"
+                    Text="Log In"
+                    TextColor="White"   
+                    FontSize="Medium"
+                    BorderWidth="1"
+                    BorderColor="Black"
+                    Margin="10,0,10,0"
+                    Clicked="btnlogin_Clicked"
+                    HeightRequest="60"
+                    BackgroundColor="#FF5733"/>
+                </StackLayout>
+            </Grid>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

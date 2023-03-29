@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:localViews="clr-namespace:MdawemApp.Views"
              xmlns:local="clr-namespace:MdawemApp"
+             xmlns:Help="clr-namespace:MdawemApp.Helper"
              x:Class="MdawemApp.Views.FlyoutPage1Flyout"
              >
 
@@ -14,8 +15,10 @@
                         <local:FlyoutItemPage Title="Month Tracker" IconSource="calendar.png" TargetPage="{x:Type localViews:MonthTracker}"></local:FlyoutItemPage>
                         <local:FlyoutItemPage Title="Leave Tracker" IconSource="Leave.png" TargetPage="{x:Type localViews:Leaves}"></local:FlyoutItemPage>
                         <local:FlyoutItemPage Title="Employee Tracker" IconSource="map.png" TargetPage="{x:Type localViews:Map}"></local:FlyoutItemPage>
-                    <local:FlyoutItemPage Title="Registration" IconSource="registration.png" TargetPage="{x:Type localViews:PersonalRegestration}"></local:FlyoutItemPage>
-                    </x:Array>
+                        <local:FlyoutItemPage Title="Registration" IconSource="registration.png" TargetPage="{x:Type localViews:PersonalRegestration}"></local:FlyoutItemPage>
+
+                </x:Array>
+                    
                 </ListView.ItemsSource>
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -32,10 +35,13 @@
                                 <Label Grid.Column="1" Text="{Binding Title}"
                                        VerticalOptions="CenterAndExpand" Margin="15"/>
                             </Grid>
-                        </ViewCell>
+
+                    </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+        <Button Text="LogOut" Background="red" Clicked="Button_Clicked" Margin="30"/>
+
+    </StackLayout>
 
 </ContentPage>
