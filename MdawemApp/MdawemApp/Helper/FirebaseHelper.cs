@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MdawemApp.Helper
 {
@@ -13,6 +14,16 @@ namespace MdawemApp.Helper
         public  FirebaseHelper()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
+        }
+
+        public async Task<bool> Register(string email, string password)
+        {
+            var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
+            if (!string.IsNullOrEmpty(token.FirebaseToken))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
