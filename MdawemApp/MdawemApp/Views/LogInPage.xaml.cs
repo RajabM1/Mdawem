@@ -49,6 +49,8 @@ namespace MdawemApp.Views
                 {
                     Application.Current.Properties["emailtxt"] = email;
                     Application.Current.Properties["passwordtxt"] = password;
+               
+                
                 }
                 else
                 {
