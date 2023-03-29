@@ -18,5 +18,10 @@ namespace MdawemApp.Views
             InitializeComponent();
             BindingContext = new PersonalRegistrationViewModels();
         }
+
+        private void NextPage(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new WorkRegestration());
+        }
     }
 }
