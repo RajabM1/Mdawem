@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MdawemApp.App">
+    <Application.Resources>
+        <Color x:Key="PrimaryColor">#ff5733</Color>
+
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="#f4f3f3" />
+            <Setter Property="BarTextColor" Value="Black" />
+            <Setter Property="Background" Value="white"/>
+        </Style> 
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black"/>
+        </Style>
+        <Style TargetType="StackLayout">
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="Margin" Value="20"/>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="PlaceholderColor" Value="Gray"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="BorderColor" Value="Gray"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Color" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+        
+    </Application.Resources>
+
+</Application>
