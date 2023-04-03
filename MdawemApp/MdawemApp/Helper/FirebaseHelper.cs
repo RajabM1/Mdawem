@@ -26,6 +26,7 @@ namespace MdawemApp.Helper
             var token = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
+                Application.Current.Properties["UID"] = token.User.LocalId;
                 return token.FirebaseToken;
             }
             {
@@ -37,6 +38,8 @@ namespace MdawemApp.Helper
         {
             Application.Current.Properties.Remove("emailtxt");
             Application.Current.Properties.Remove("passwordtxt");
+            Application.Current.Properties.Remove("UID");
+
         }
         public async Task<bool> Register(string email, string password)
         {
