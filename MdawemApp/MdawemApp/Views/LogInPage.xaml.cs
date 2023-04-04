@@ -106,6 +106,11 @@ namespace MdawemApp.Views
             }
 
         }
+
+        private async void ForgetPassword(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ForgotPassword());
+        }
     }
 
 }

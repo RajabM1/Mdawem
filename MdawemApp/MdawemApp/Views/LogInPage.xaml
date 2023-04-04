@@ -72,7 +72,7 @@
                         BackgroundColor="Transparent"
                         RelativeLayout.XConstraint="175"
                         RelativeLayout.YConstraint="-8"
-       
+                        Clicked="ForgetPassword"
                         TextTransform="None"/>
                     </RelativeLayout>
                     <Button
