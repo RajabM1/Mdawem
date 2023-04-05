@@ -40,7 +40,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        <Button Text="LogOut" Background="red" Clicked="Button_Clicked" Margin="30"/>
+        <Button Text="LogOut" Background="red" Clicked="LogOut_Clicked" Margin="30"/>
 
     </StackLayout>
 
