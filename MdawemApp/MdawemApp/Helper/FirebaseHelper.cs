@@ -1,4 +1,7 @@
 using Firebase.Auth;
+using Firebase.Database;
+using MdawemApp.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +18,9 @@ namespace MdawemApp.Helper
         string webAPIKey = "AIzaSyDuxpf83oL4rNwmPBV06DEid9xUWPNyOWU";
         FirebaseAuthProvider authProvider;
 
+        FirebaseClient client = new FirebaseClient(
+                "https://mdawemr-default-rtdb.asia-southeast1.firebasedatabase.app/"
+            );
         public FirebaseHelper()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
@@ -26,6 +32,7 @@ namespace MdawemApp.Helper
             var token = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
+                Application.Current.Properties["UID"] = token.User.LocalId;
                 return token.FirebaseToken;
             }
             {
@@ -37,6 +44,8 @@ namespace MdawemApp.Helper
         {
             Application.Current.Properties.Remove("emailtxt");
             Application.Current.Properties.Remove("passwordtxt");
+            Application.Current.Properties.Remove("UID");
+
         }
         public async Task<bool> Register(string email, string password)
         {
@@ -46,6 +55,34 @@ namespace MdawemApp.Helper
                 return true;
             }
             return false;
+        }
+
+        public async Task<List<Attendance>> GetAttendance(string userId, string year, string month, string day)
+        {
+
+            string path = $"users/{userId}/locations/{year}/{month}/{day}";
+
+            var dataSnapshot = await client.Child(path).OnceAsync<object>();
+
+            var Attendances = new List<Attendance>();
+
+            foreach (var childSnapshot in dataSnapshot)
+            {
+                var value = childSnapshot.Object;
+                var valueJson = value.ToString();
+                var Attend = JsonConvert.DeserializeObject<Attendance>(valueJson);
+
+                var attendanceViewModel = new Attendance
+                {
+                    Date = Attend.Date,
+                    TimeIn = Attend.TimeIn,
+                    TimeOut = Attend.TimeOut
+                };
+
+                Attendances.Add(attendanceViewModel);
+            }
+
+            return Attendances;
         }
     }
 }
