@@ -38,7 +38,68 @@ namespace MdawemApp.Views
                 string TimeIn = location.TimeIn;
                 string TimeOut = location.TimeOut;
 
-                
+
+                StackLayout locationStackLayout = new StackLayout();
+
+                Label dateLabel = new Label
+                {
+                    Text = $"{Date}",
+                    FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+                    FontAttributes = FontAttributes.Bold,
+                    HorizontalOptions = LayoutOptions.StartAndExpand,
+                    Margin = new Thickness(0, 5, 0, 5)
+                };
+
+                Frame frame = new Frame
+                {
+                    HasShadow = true,
+                    BorderColor = Color.FromHex("#CCC"),
+                    Padding = new Thickness(10),
+                    CornerRadius = 17
+                };
+
+                Grid grid = new Grid
+                {
+                    RowDefinitions =
+                {
+                new RowDefinition { Height = GridLength.Auto },
+                new RowDefinition { Height = GridLength.Auto },
+                new RowDefinition { Height = GridLength.Auto }
+            },
+                    ColumnDefinitions =
+            {
+                new ColumnDefinition { Width = GridLength.Star },
+                new ColumnDefinition { Width = GridLength.Auto }
+            }
+                };
+
+                Label checkInLabel = new Label
+                {
+                    Text = "Check-in"
+                };
+                Grid.SetRow(checkInLabel, 0);
+                Grid.SetColumn(checkInLabel, 0);
+
+                Label timeInLabel = new Label
+                {
+                    Text = $"{TimeIn}"
+                };
+                Grid.SetRow(timeInLabel, 0);
+                Grid.SetColumn(timeInLabel, 1);
+
+                Label checkOutLabel = new Label
+                {
+                    Text = "Checkout"
+                };
+                Grid.SetRow(checkOutLabel, 1);
+                Grid.SetColumn(checkOutLabel, 0);
+
+                Label timeOutLabel = new Label
+                {
+                    Text = $"{TimeOut}"
+                };
+                Grid.SetRow(timeOutLabel, 1);
+                Grid.SetColumn(timeOutLabel, 1);
 
 
 
