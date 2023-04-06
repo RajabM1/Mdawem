@@ -35,6 +35,8 @@ namespace MdawemApp.Views
 
             if (Attends != null)
             {
+                AttendanceStackLayout.Children.Clear();
+
                 foreach (Attendance location in Attends)
                 {
                     string Date = location.Date;
@@ -121,6 +123,8 @@ namespace MdawemApp.Views
             }
             else
             {
+                AttendanceStackLayout.Children.Clear(); 
+
                 await DisplayAlert("error", "Wrong Path", "OK");
             }
         }
@@ -143,8 +147,11 @@ namespace MdawemApp.Views
                 {
                     // Do something with the selected month and year (e.g. display them in a label)
                     string monthString = monthNumber.ToString("D2");
+                    SelectedMonthYearLabel.Text = $"{month} {year}";
+
                     string userId = "h67eh6zGV6WqbBTEwPpMwDmTidx2";
                     GetAttendances(userId, year, monthString, "03");
+                    
                 }
             }
         }

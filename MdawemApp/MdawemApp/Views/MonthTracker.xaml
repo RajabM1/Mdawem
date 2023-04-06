@@ -13,7 +13,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label  FontSize="24" 
+
+                <Label           x:Name="SelectedMonthYearLabel"
+                                 FontSize="24" 
                                  FontAttributes="Bold" 
                                  TextColor="Black" 
                                  Margin="10"
@@ -21,22 +23,22 @@
                                  HorizontalOptions="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="{Binding CurrentMonth}"/>
-                            <Span Text="  " />
+                            <Span Text="{Binding CurrentMonth}" />
+                            <Span Text=" " />
                             <Span Text="{Binding CurrentYear}" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
 
                 <ImageButton Source="calendar.png" 
-            Aspect="AspectFit"
-            Grid.Column="1"
-            HeightRequest="40"
-            WidthRequest="40"
-            VerticalOptions="Start"
-            HorizontalOptions="End" 
-                             Clicked="Filter_Clicked"/>
-
+                             Aspect="AspectFit"
+                             Grid.Column="1"
+                             HeightRequest="40"
+                             WidthRequest="40"
+                             VerticalOptions="Start"
+                             HorizontalOptions="End" 
+                             Clicked="Filter_Clicked"
+                />
             </Grid>
             <ScrollView>
                 <StackLayout x:Name="AttendanceStackLayout" Margin="0"/>
