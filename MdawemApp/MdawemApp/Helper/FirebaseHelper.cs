@@ -20,7 +20,7 @@ namespace MdawemApp.Helper
         FirebaseAuthProvider authProvider;
 
         FirebaseClient client = new FirebaseClient(
-                "https://mdawemr-default-rtdb.asia-southeast1.firebasedatabase.app/"
+                "https://mdawemh-default-rtdb.firebaseio.com/"
             );
         public FirebaseHelper()
         {
@@ -58,10 +58,10 @@ namespace MdawemApp.Helper
             return false;
         }
 
-        public async Task<List<Attendance>> GetAttendance(string userId, string year, string month, string day)
+        public async Task<List<Attendance>> GetAttendance(string userId, string year, string month)
         {
 
-            string path = $"users/{userId}/locations/{year}/{month}/{day}";
+            string path = $"users/{userId}/locations/{year}/{month}";
 
             var dataSnapshot = await client.Child(path).OnceAsync<object>();
 

@@ -21,13 +21,6 @@
                                  Margin="10"
                                  VerticalOptions="Start" 
                                  HorizontalOptions="Start">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="{Binding CurrentMonth}" />
-                            <Span Text=" " />
-                            <Span Text="{Binding CurrentYear}" />
-                        </FormattedString>
-                    </Label.FormattedText>
                 </Label>
 
                 <ImageButton Source="calendar.png" 

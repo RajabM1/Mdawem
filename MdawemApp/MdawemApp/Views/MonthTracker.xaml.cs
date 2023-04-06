@@ -21,17 +21,23 @@ namespace MdawemApp.Views
         public MonthTracker()
         {
             InitializeComponent();
-            BindingContext = new MonthTrackerViewModel();
-            GetAttendances("h67eh6zGV6WqbBTEwPpMwDmTidx2","2023","04","03");
+            DateTime currentDate = DateTime.Now;
+            var CurrentMonthS = currentDate.ToString("MMMM");
+            string CurrentYear = currentDate.Year.ToString();
+            string monthString = currentDate.Month.ToString("D2");
+            SelectedMonthYearLabel.Text = $"{CurrentMonthS} {CurrentYear}";
+
+
+            GetAttendances("7XQCOtDQ6FXS4YtONJF1XgTUKSZ2", CurrentYear, monthString);
         }
 
         
 
-        public async void GetAttendances(string UserId,string year ,string month , string day)
+        public async void GetAttendances(string UserId,string year ,string month)
         {
-            string userId = "h67eh6zGV6WqbBTEwPpMwDmTidx2";
+            string userId = "7XQCOtDQ6FXS4YtONJF1XgTUKSZ2";
             
-            Attends = await _userRepo.GetAttendance(userId, year, month, day);
+            Attends = await _userRepo.GetAttendance(userId, year, month);
 
             if (Attends != null)
             {
@@ -149,8 +155,8 @@ namespace MdawemApp.Views
                     string monthString = monthNumber.ToString("D2");
                     SelectedMonthYearLabel.Text = $"{month} {year}";
 
-                    string userId = "h67eh6zGV6WqbBTEwPpMwDmTidx2";
-                    GetAttendances(userId, year, monthString, "03");
+                    string userId = "7XQCOtDQ6FXS4YtONJF1XgTUKSZ2";
+                    GetAttendances(userId, year, monthString);
                     
                 }
             }
