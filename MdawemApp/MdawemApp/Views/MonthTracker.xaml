@@ -34,7 +34,8 @@
             HeightRequest="40"
             WidthRequest="40"
             VerticalOptions="Start"
-            HorizontalOptions="End" />
+            HorizontalOptions="End" 
+                             Clicked="Filter_Clicked"/>
 
             </Grid>
             <ScrollView>

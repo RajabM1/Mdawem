@@ -4,6 +4,7 @@ using MdawemApp.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,6 +65,11 @@ namespace MdawemApp.Helper
 
             var dataSnapshot = await client.Child(path).OnceAsync<object>();
 
+            if (!dataSnapshot.Any())
+            {
+                return null;
+            }
+
             var Attendances = new List<Attendance>();
 
             foreach (var childSnapshot in dataSnapshot)
@@ -81,7 +87,6 @@ namespace MdawemApp.Helper
 
                 Attendances.Add(attendanceViewModel);
             }
-
             return Attendances;
         }
     }
