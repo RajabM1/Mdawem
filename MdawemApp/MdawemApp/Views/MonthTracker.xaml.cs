@@ -1,5 +1,6 @@
 ﻿using Firebase.Auth;
 using MdawemApp.Helper;
+using MdawemApp.Models;
 using MdawemApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -28,12 +29,12 @@ namespace MdawemApp.Views
             SelectedMonthYearLabel.Text = $"{CurrentMonthS} {CurrentYear}";
 
 
-            GetAttendances("7XQCOtDQ6FXS4YtONJF1XgTUKSZ2", CurrentYear, monthString);
+            DisplayAttendance("7XQCOtDQ6FXS4YtONJF1XgTUKSZ2", CurrentYear, monthString);
         }
 
         
 
-        public async void GetAttendances(string UserId,string year ,string month)
+        public async void DisplayAttendance(string UserId,string year ,string month)
         {
             string userId = "7XQCOtDQ6FXS4YtONJF1XgTUKSZ2";
             
@@ -156,7 +157,7 @@ namespace MdawemApp.Views
                     SelectedMonthYearLabel.Text = $"{month} {year}";
 
                     string userId = "7XQCOtDQ6FXS4YtONJF1XgTUKSZ2";
-                    GetAttendances(userId, year, monthString);
+                    DisplayAttendance(userId, year, monthString); 
                     
                 }
             }

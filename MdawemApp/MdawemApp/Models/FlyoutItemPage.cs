@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MdawemApp
+namespace MdawemApp.Models
 {
-    class FlyoutItemPage
+     class FlyoutItemPage
     {
         public string Title { get; set; }
         public string IconSource { get; set; }
-        public Type TargetPage { get; set; }    
-
+        public Type TargetPage { get; set; }
     }
 }
