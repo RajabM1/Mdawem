@@ -18,7 +18,7 @@ namespace MdawemApp.Views
             Children.Add(new NavigationPage(new HomePage()) { Title = "Home", IconImageSource = "home.png" });
             Children.Add(new NavigationPage(new ProfilePage()) { Title = "Profile", IconImageSource = "profile.png" });
             Children.Add(new NavigationPage(new notificationPage()) { Title = "Notification", IconImageSource = "notification.png" });
-            Children.Add(new NavigationPage(new FlyoutPage1Flyout()) { Title = "MENU", IconImageSource = "menu.png" });
+            Children.Add(new NavigationPage(new FlyoutPage1Flyout()) { Title = "More", IconImageSource = "more.png" });
         }
     }
 }
