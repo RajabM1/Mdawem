@@ -58,6 +58,19 @@ namespace MdawemApp.Helper
             return false;
         }
 
+
+        public async Task<bool> ResetPassword(string email)
+        {
+            try
+            {
+                await authProvider.SendPasswordResetEmailAsync(email);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         public async Task<List<Attendance>> GetAttendance(string userId, string year, string month)
         {
 
@@ -88,6 +101,7 @@ namespace MdawemApp.Helper
                 Attendances.Add(attendanceViewModel);
             }
             return Attendances;
+
         }
     }
 }
