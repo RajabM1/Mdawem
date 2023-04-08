@@ -47,5 +47,18 @@ namespace MdawemApp.Helper
             }
             return false;
         }
+
+        public async Task<bool> ResetPassword(string email)
+        {
+            try
+            {
+                await authProvider.SendPasswordResetEmailAsync(email);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
