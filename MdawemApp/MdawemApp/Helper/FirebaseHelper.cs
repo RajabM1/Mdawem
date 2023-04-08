@@ -70,38 +70,38 @@ namespace MdawemApp.Helper
             {
                 return false;
             }
-
+        }
         public async Task<List<Attendance>> GetAttendance(string userId, string year, string month)
         {
 
-            string path = $"users/{userId}/locations/{year}/{month}";
+                string path = $"users/{userId}/locations/{year}/{month}";
 
-            var dataSnapshot = await client.Child(path).OnceAsync<object>();
+                var dataSnapshot = await client.Child(path).OnceAsync<object>();
 
-            if (!dataSnapshot.Any())
-            {
-                return null;
-            }
-
-            var Attendances = new List<Attendance>();
-
-            foreach (var childSnapshot in dataSnapshot)
-            {
-                var value = childSnapshot.Object;
-                var valueJson = value.ToString();
-                var Attend = JsonConvert.DeserializeObject<Attendance>(valueJson);
-
-                var attendanceViewModel = new Attendance
+                if (!dataSnapshot.Any())
                 {
-                    Date = Attend.Date,
-                    TimeIn = Attend.TimeIn,
-                    TimeOut = Attend.TimeOut
-                };
+                    return null;
+                }
 
-                Attendances.Add(attendanceViewModel);
-            }
-            return Attendances;
+                var Attendances = new List<Attendance>();
 
+                foreach (var childSnapshot in dataSnapshot)
+                {
+                    var value = childSnapshot.Object;
+                    var valueJson = value.ToString();
+                    var Attend = JsonConvert.DeserializeObject<Attendance>(valueJson);
+
+                    var attendanceViewModel = new Attendance
+                    {
+                        Date = Attend.Date,
+                        TimeIn = Attend.TimeIn,
+                        TimeOut = Attend.TimeOut
+                    };
+
+                    Attendances.Add(attendanceViewModel);
+                }
+                return Attendances;
+           
         }
     }
 }
