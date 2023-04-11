@@ -2,12 +2,157 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MdawemApp.Views.RequestForVacation"
+             xmlns:ca="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar"
              Title="Request Vacation">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to RequestForVacation Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="20">
+            <Frame Padding="20,8,20,9" CornerRadius="10" HasShadow="True"  >
+                <StackLayout>
+                    <!-- vac-type -->
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Frame BackgroundColor="#FF5733" Padding="4" CornerRadius="10">
+                                <Image   Grid.Column="0" Source="types.png"></Image>
+                            </Frame>
+                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="Type" TextColor="#CFCECE" FontSize="Small"></Label>
+                                <StackLayout VerticalOptions="Center">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <RadioButton Margin="-10,0,0,0" VerticalOptions="Center" Grid.Column="0" HorizontalOptions="Start" Scale="0.9" FontSize="16" x:Name="casualRadioButton" Content="Casual" TextColor="Black"/>                                        <RadioButton Grid.Column="1" HorizontalOptions="Start" Scale="0.9" FontSize="16"  x:Name="sickRadioButton" Content="Sick" TextColor="Black"/>
+                                    </Grid>
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    <!-- ./vac-type -->
+                    <BoxView Margin="-20, 0, -20, 0" HorizontalOptions="FillAndExpand" HeightRequest="1" BackgroundColor="#CFCECE" />
+                    <!-- cause -->
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Frame BackgroundColor="#FF5733" Padding="9" CornerRadius="10">
+                                <Image   Grid.Column="0" Source="pencil.png"></Image>
+                            </Frame>
+                            <StackLayout  Grid.Column="1" VerticalOptions="Center">
+                                <Entry VerticalOptions="Start" Placeholder="Cause" FontAttributes="Bold" FontSize="Subtitle" TextColor="Black" />
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    <!-- ./cause -->
+                    <BoxView Margin="-20, 0, -20, 0" HorizontalOptions="FillAndExpand" HeightRequest="1" BackgroundColor="#CFCECE" />
+                    <!-- start-date -->
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Frame BackgroundColor="#FF5733" Padding="7" CornerRadius="10">
+                                <Image   Grid.Column="0" Source="rightArrow.png"></Image>
+                            </Frame>
+                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="From" TextColor="#CFCECE" FontSize="Small"></Label>
+                                <StackLayout VerticalOptions="Center">
+                                    <Label Grid.Column="0" x:Name="startDate" Text="Start Date" FontAttributes="Bold" TextColor="#030303">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    <!-- ./start-date -->
+                    <!-- Calendar -->
+                    <StackLayout IsVisible="True" x:Name="DatePicker" Padding="0">
+                        <ca:Calendar 
+                        TodayOutlineColor="#FF5733"
+                        SelectedDayBackgroundColor="#FF5733"
+                        SelectedDateColor="#FFFFFF"
+                        ShowYearPicker="False"
+                        ShowMonthPicker="True"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        FooterArrowVisible="False"
+                        HeightRequest="265"
+                        x:Name="MyCalendar"
+                        PropertyChanged="MyCalendar_PropertyChanged"
+                        FooterSectionVisible="False"
+                        MonthLabelColor="#CFCECE"
+                    />
+                    </StackLayout>
+                    <!-- ./Calendar -->
+                    <BoxView Margin="-20, 0, -20, 0" HorizontalOptions="FillAndExpand" HeightRequest="1" BackgroundColor="#CFCECE" />
+                    <!-- end-date -->
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Frame BackgroundColor="#FF5733" Padding="7" CornerRadius="10">
+                                <Image   Grid.Column="0" Source="rightArrow.png"></Image>
+                            </Frame>
+                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="To" TextColor="#CFCECE" FontSize="Small"></Label>
+                                <StackLayout VerticalOptions="Center">
+                                    <Label Grid.Column="0" x:Name="endDate" Text="End Date" FontAttributes="Bold" TextColor="#030303">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    <!-- ./end-date -->
+                    <!-- Calendar -->
+                    <StackLayout IsVisible="false" x:Name="DatePickerEnd" Padding="0">
+                        <ca:Calendar 
+                        HeightRequest="265"
+                        TodayOutlineColor="#FF5733"
+                        SelectedDayBackgroundColor="#FF5733"
+                        SelectedDateColor="#FFFFFF"
+                        ShowYearPicker="False"
+                        ShowMonthPicker="True"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        FooterArrowVisible="False"
+                        x:Name="MyCalendarEnd"
+                        PropertyChanged="MyCalendarEnd_PropertyChanged"
+                        FooterSectionVisible="False"
+                        MonthLabelColor="#CFCECE"
+                    />
+                    </StackLayout>
+                    <!-- ./Calendar -->
+                </StackLayout>
+            </Frame>
+            <StackLayout Padding="0">
+                <Button Margin="0, 8, 0, 0" CornerRadius="10" Text="Request" BackgroundColor="#FF5733" TextColor="#FFFFFF" TextTransform="None"></Button>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
