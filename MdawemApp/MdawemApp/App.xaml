@@ -2,6 +2,7 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MdawemApp.App">
+    
     <Application.Resources>
         <Color x:Key="PrimaryColor">#ff5733</Color>
 
@@ -15,18 +16,15 @@
         </Style>
         <Style TargetType="StackLayout">
             <Setter Property="Background" Value="white"/>
-            <Setter Property="Margin" Value="20,20,20,0"/>
         </Style>
         <Style TargetType="Entry">
             <Setter Property="PlaceholderColor" Value="Gray"/>
             <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Margin" Value="10,0"/>
+          
         </Style>
         <Style TargetType="Frame">
             <Setter Property="BorderColor" Value="Gray"/>
             <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Padding" Value="5"/>
         </Style>
         <Style TargetType="Button">
             <Setter Property="VerticalOptions" Value="CenterAndExpand"/>

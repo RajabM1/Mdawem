@@ -59,7 +59,7 @@ namespace MdawemApp.Views
                         FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                         FontAttributes = FontAttributes.Bold,
                         HorizontalOptions = LayoutOptions.StartAndExpand,
-                        Margin = new Thickness(0, 5, 0, 5)
+                        Margin = new Thickness(3, 5, 0, 5)
                     };
 
                     Frame frame = new Frame
@@ -67,22 +67,24 @@ namespace MdawemApp.Views
                         HasShadow = true,
                         BorderColor = Color.FromHex("#CCC"),
                         Padding = new Thickness(10),
-                        CornerRadius = 17
+                        CornerRadius = 17,
+                        Margin = new Thickness(0,0,0,10)
+                        
                     };
 
                     Grid grid = new Grid
                     {
                         RowDefinitions =
-                {
-                new RowDefinition { Height = GridLength.Auto },
-                new RowDefinition { Height = GridLength.Auto },
-                new RowDefinition { Height = GridLength.Auto }
-            },
+                        {
+                            new RowDefinition { Height = GridLength.Auto },
+                            new RowDefinition { Height = GridLength.Auto },
+                            new RowDefinition { Height = GridLength.Auto }
+                        },
                         ColumnDefinitions =
-            {
-                new ColumnDefinition { Width = GridLength.Star },
-                new ColumnDefinition { Width = GridLength.Auto }
-            }
+                        {
+                            new ColumnDefinition { Width = GridLength.Star },
+                            new ColumnDefinition { Width = GridLength.Auto }
+                        }
                     };
 
                     Label checkInLabel = new Label
@@ -152,7 +154,6 @@ namespace MdawemApp.Views
 
                 if (year != null && year != "Cancel")
                 {
-                    // Do something with the selected month and year (e.g. display them in a label)
                     string monthString = monthNumber.ToString("D2");
                     SelectedMonthYearLabel.Text = $"{month} {year}";
 
