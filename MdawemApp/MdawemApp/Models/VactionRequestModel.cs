@@ -13,7 +13,6 @@ namespace MdawemApp.Models
         public string UserID { get; set; }
 
         public string _status { get; set; }
-        public string UserID { get; set; }
 
         public String Dateofrequest { get; set; }
 
