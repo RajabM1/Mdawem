@@ -103,5 +103,17 @@ namespace MdawemApp.Helper
                 return Attendances;
            
         }
+        public async Task<bool> Save(VactionReuestModel request)
+        {
+
+
+            var data = await client.Child(nameof(VactionReuestModel)).PostAsync(JsonConvert.SerializeObject(request));
+            await App.Current.MainPage.DisplayAlert("Success", "Submit request  Success", "Done");
+            if (!string.IsNullOrEmpty(data.Key))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
