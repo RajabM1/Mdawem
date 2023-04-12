@@ -103,11 +103,11 @@ namespace MdawemApp.Helper
                 return Attendances;
            
         }
-        public async Task<bool> SaveRequestToFirebase(VactionRequestModel request)
+        public async Task<bool> SaveRequestToFirebase(VactionReuestModel request)
         {
 
 
-            var data = await client.Child(nameof(VactionRequestModel)).PostAsync(JsonConvert.SerializeObject(request));
+            var data = await client.Child(nameof(VactionReuestModel)).PostAsync(JsonConvert.SerializeObject(request));
             await App.Current.MainPage.DisplayAlert("Success", "Submit request  Success", "Done");
             if (!string.IsNullOrEmpty(data.Key))
             {
