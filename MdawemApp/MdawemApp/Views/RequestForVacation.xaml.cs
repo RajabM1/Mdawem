@@ -3,12 +3,9 @@ using MdawemApp.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,15 +15,16 @@ namespace MdawemApp.Views
     public partial class RequestForVacation : ContentPage
     {
         private bool _isCheckedStartDate = false;
-
-        private bool _isCheckedEndDate = false;
+        private bool _isCheckedEndDate = false;             
         private const int MaxDaysAllowed = 14;
-        FirebaseHelper firebaseHelper = new FirebaseHelper();
+        FirebaseHelper firebaseHelper=new  FirebaseHelper();
 
         public RequestForVacation()
         {
-            InitializeComponent();
 
+        InitializeComponent();
+
+            
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -47,16 +45,12 @@ namespace MdawemApp.Views
         }
 
         private void MyCalendar_PropertyChanged(object sender, PropertyChangedEventArgs e)
-
         {
             if (e.PropertyName == nameof(MyCalendar.SelectedDate))
             {
                 if (MyCalendar.SelectedDate != null && MyCalendar.SelectedDate.ToString() != "")
                 {
-
                     startDate.Text = MyCalendar.SelectedDate.ToString("ddd, dd MMM yyyy");
-
-
                 }
             }
         }
@@ -70,8 +64,8 @@ namespace MdawemApp.Views
 
                     endDate.Text = MyCalendarEnd.SelectedDate.ToString("ddd, dd MMM yyyy");
                     string leaveType = GetSelectedLeaveType();
-                    DateTime startDateTime = DateTime.Parse(startDate.Text);
-                    DateTime endDateTime = DateTime.Parse(endDate.Text);
+                    string startDateTime =startDate.Text;
+                    string endDateTime =endDate.Text;
                     string reason = causeEntry.Text;
                     string errorMessage = ValidateInput(leaveType, startDateTime, endDateTime, reason);
                     if (!string.IsNullOrEmpty(errorMessage))
@@ -100,15 +94,13 @@ namespace MdawemApp.Views
             }
         }
 
-
-
-        private async void Button_Clicked_1(object sender, EventArgs e)
+        private  async void Button_Clicked(object sender, EventArgs e)
         {
             try
             {
                 string leaveType = GetSelectedLeaveType();
-                DateTime startDateTime = DateTime.Parse(startDate.Text);
-                DateTime endDateTime = DateTime.Parse(endDate.Text);
+                string startDateTime = startDate.Text;
+                string endDateTime = endDate.Text;
                 string reason = causeEntry.Text;
                 string errorMessage = ValidateInput(leaveType, startDateTime, endDateTime, reason);
                 if (!string.IsNullOrEmpty(errorMessage))
@@ -122,10 +114,11 @@ namespace MdawemApp.Views
                     Type = leaveType,
                     StartDate = startDateTime,
                     EndDate = endDateTime,
-                    Reason = reason,
-                };
+                    Reason = reason,               
+                  UserID = (string)Application.Current.Properties["UID"],
 
-                bool isSaved = await firebaseHelper.Save(request);
+                };
+                bool isSaved = await firebaseHelper.SaveRequestToFirebase(request);
                 string message = isSaved ? "Your request has been submitted." : "Failed to save your request.";
                 await DisplayAlert(isSaved ? "Success" : "Error", message, "OK");
             }
@@ -134,7 +127,6 @@ namespace MdawemApp.Views
                 await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
             }
         }
-
         private string GetSelectedLeaveType()
         {
             if (casualRadioButton.IsChecked == true)
@@ -147,22 +139,21 @@ namespace MdawemApp.Views
             }
             return string.Empty;
         }
-
-        private string ValidateInput(string leaveType, DateTime startDate, DateTime endDate, string reason)
+        private string ValidateInput(string leaveType, string startDate, string endDate, string reason)
         {
             if (string.IsNullOrEmpty(leaveType))
             {
                 return "Please select a leave type.";
             }
-            if (startDate < DateTime.Today)
+            if (DateTime.Parse(startDate )< DateTime.Today)
             {
                 return "Start date cannot be in the past.";
             }
-            if (endDate <= startDate)
+            if (DateTime.Parse(endDate) <= DateTime.Parse(startDate))
             {
                 return "End date cannot be before start date.";
             }
-            int daysRequested = (endDate - startDate).Days;
+            int daysRequested = (DateTime.Parse(endDate) - DateTime.Parse(startDate)).Days;
             if (daysRequested > MaxDaysAllowed)
             {
                 return $"You are only allowed to request up to {MaxDaysAllowed} days of vacation";
@@ -175,7 +166,6 @@ namespace MdawemApp.Views
             }
             return string.Empty;
         }
-
 
     }
 }
