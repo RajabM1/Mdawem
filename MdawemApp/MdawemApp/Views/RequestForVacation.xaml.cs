@@ -20,13 +20,13 @@ namespace MdawemApp.Views
         private bool _isCheckedStartDate = false;
 
         private bool _isCheckedEndDate = false;
-        private const int MaxDaysAllowed = 14;
-        FirebaseHelper firebaseHelper = new FirebaseHelper();
 
         public RequestForVacation()
         {
             InitializeComponent();
-
+           
+            private const int MaxDaysAllowed = 14;
+            FirebaseHelper firebaseHelper = new FirebaseHelper();
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -47,12 +47,31 @@ namespace MdawemApp.Views
         }
 
         private void MyCalendar_PropertyChanged(object sender, PropertyChangedEventArgs e)
-
         {
             if (e.PropertyName == nameof(MyCalendar.SelectedDate))
             {
                 if (MyCalendar.SelectedDate != null && MyCalendar.SelectedDate.ToString() != "")
                 {
+                    startDate.Text = MyCalendar.SelectedDate.ToString("ddd, dd MMM yyyy");
+                }
+            }
+        }
+
+
+        private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
+        {
+            if (!_isCheckedEndDate)
+            {
+                if (DatePicker.IsVisible)
+                {
+                    DatePicker.IsVisible = false;
+                }
+                DatePickerEnd.IsVisible = true;
+            }
+            else
+            {
+                DatePickerEnd.IsVisible = false;
+                _isCheckedEndDate = false;
 
                     startDate.Text = MyCalendar.SelectedDate.ToString("ddd, dd MMM yyyy");
 
