@@ -3,36 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MdawemApp.Views.MonthTracker"
              Title="Month Tracker">
-    <ContentPage.Content>
-        <StackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" IconImageSource="calendar.png" Priority="0" Clicked="Filter_Clicked" />
+    </ContentPage.ToolbarItems>
 
-                <Label           x:Name="SelectedMonthYearLabel"
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+
+            <Label               x:Name="SelectedMonthYearLabel"
                                  FontSize="24" 
                                  FontAttributes="Bold" 
                                  TextColor="Black" 
                                  Margin="10"
                                  VerticalOptions="Start" 
-                                 HorizontalOptions="Start">
-                </Label>
+                                 HorizontalOptions="Start"/>
 
-                <ImageButton Source="calendar.png" 
-                             Aspect="AspectFit"
-                             Grid.Column="1"
-                             HeightRequest="40"
-                             WidthRequest="40"
-                             VerticalOptions="Start"
-                             HorizontalOptions="End" 
-                             Clicked="Filter_Clicked"
-                />
-            </Grid>
+
             <ScrollView>
                 <StackLayout x:Name="AttendanceStackLayout" Margin="0"/>
             </ScrollView>

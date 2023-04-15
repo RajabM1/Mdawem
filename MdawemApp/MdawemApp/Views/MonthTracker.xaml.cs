@@ -32,12 +32,12 @@ namespace MdawemApp.Views
             DisplayAttendance("7XQCOtDQ6FXS4YtONJF1XgTUKSZ2", CurrentYear, monthString);
         }
 
-        
 
-        public async void DisplayAttendance(string UserId,string year ,string month)
+
+        public async void DisplayAttendance(string UserId, string year, string month)
         {
             string userId = "7XQCOtDQ6FXS4YtONJF1XgTUKSZ2";
-            
+
             Attends = await _userRepo.GetAttendance(userId, year, month);
 
             if (Attends != null)
@@ -59,7 +59,7 @@ namespace MdawemApp.Views
                         FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                         FontAttributes = FontAttributes.Bold,
                         HorizontalOptions = LayoutOptions.StartAndExpand,
-                        Margin = new Thickness(0, 5, 0, 5)
+                        Margin = new Thickness(3, 5, 0, 5)
                     };
 
                     Frame frame = new Frame
@@ -67,22 +67,24 @@ namespace MdawemApp.Views
                         HasShadow = true,
                         BorderColor = Color.FromHex("#CCC"),
                         Padding = new Thickness(10),
-                        CornerRadius = 17
+                        CornerRadius = 17,
+                        Margin = new Thickness(0, 0, 0, 10)
+
                     };
 
                     Grid grid = new Grid
                     {
                         RowDefinitions =
-                {
-                new RowDefinition { Height = GridLength.Auto },
-                new RowDefinition { Height = GridLength.Auto },
-                new RowDefinition { Height = GridLength.Auto }
-            },
+                        {
+                            new RowDefinition { Height = GridLength.Auto },
+                            new RowDefinition { Height = GridLength.Auto },
+                            new RowDefinition { Height = GridLength.Auto }
+                        },
                         ColumnDefinitions =
-            {
-                new ColumnDefinition { Width = GridLength.Star },
-                new ColumnDefinition { Width = GridLength.Auto }
-            }
+                        {
+                            new ColumnDefinition { Width = GridLength.Star },
+                            new ColumnDefinition { Width = GridLength.Auto }
+                        }
                     };
 
                     Label checkInLabel = new Label
@@ -130,7 +132,7 @@ namespace MdawemApp.Views
             }
             else
             {
-                AttendanceStackLayout.Children.Clear(); 
+                AttendanceStackLayout.Children.Clear();
 
                 await DisplayAlert("error", "Wrong Path", "OK");
             }
@@ -152,13 +154,12 @@ namespace MdawemApp.Views
 
                 if (year != null && year != "Cancel")
                 {
-                    // Do something with the selected month and year (e.g. display them in a label)
                     string monthString = monthNumber.ToString("D2");
                     SelectedMonthYearLabel.Text = $"{month} {year}";
 
                     string userId = "7XQCOtDQ6FXS4YtONJF1XgTUKSZ2";
-                    DisplayAttendance(userId, year, monthString); 
-                    
+                    DisplayAttendance(userId, year, monthString);
+
                 }
             }
         }
