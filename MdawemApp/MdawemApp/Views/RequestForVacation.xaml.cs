@@ -75,11 +75,6 @@ namespace MdawemApp.Views
             {
                 DatePickerEnd.IsVisible = false;
                 _isCheckedEndDate = false;
-
-                startDate.Text = MyCalendar.SelectedDate.ToString("ddd, dd MMM yyyy");
-
-
-
             }
         }
 

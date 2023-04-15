@@ -112,9 +112,9 @@ namespace MdawemApp.Helper
 
                 var data = await client.Child("users").
                     Child(UserID).
+                    Child("Leaves").
                     Child(DateTime.Parse(vactionRequestModel.StartDate).Year.ToString()).
-                    Child(DateTime.Parse(vactionRequestModel.StartDate).Month.ToString()).
-                    Child("Leaves").PostAsync(vactionRequestModel);
+                    PostAsync(vactionRequestModel);
 
                 if (!string.IsNullOrEmpty(data.Key))
                 {
