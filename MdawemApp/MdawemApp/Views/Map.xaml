@@ -4,39 +4,11 @@
              xmlns:map="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="MdawemApp.Views.Map">
 
-    <StackLayout>
+    <StackLayout Margin="0">
 
-        <map:Map x:Name="map">
-            <x:Arguments>
-                <map:MapSpan>
-                    <x:Arguments>
-                        <map:Position>
-                            <x:Arguments>
-                                <x:Double>36.9628066</x:Double>
-                                <x:Double>-122.0194722</x:Double>
-                            </x:Arguments>
-                        </map:Position>
-                        <x:Double>0.01</x:Double>
-                        <x:Double>0.01</x:Double>
-                    </x:Arguments>
-                </map:MapSpan>
-            </x:Arguments>
-            <map:Map.Pins>
-                <map:Pin Label="Nablus"
-                          Address="The city with a boardwalk"
-                          Type="Place">
-                    <map:Pin.Position>
-                        <map:Position>
-                            <x:Arguments>
-                                <x:Double>32.2147969</x:Double>
-                                <x:Double>35.2803104</x:Double>
-                            </x:Arguments>
-                        </map:Position>
-                    </map:Pin.Position>
-                </map:Pin>
-            </map:Map.Pins>
+        <map:Map x:Name="myMap">
+
         </map:Map>
-
 
     </StackLayout>
 </ContentPage>
