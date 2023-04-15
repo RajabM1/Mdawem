@@ -129,5 +129,37 @@ namespace MdawemApp.Helper
             return false;
         }
 
+        public async Task<List<VactionRequestModel>> GetLeaves(string userId, string year, string leaveType)
+        {
+            string path = $"users/{userId}/Leaves/{year}";
+            var dataSnapshot = await client.Child(path).OnceAsync<object>();
+            if (!dataSnapshot.Any())
+            {
+                return null;
+            }
+
+            var Leaves = new List<VactionRequestModel>();
+            foreach (var childSnapshot in dataSnapshot)
+            {
+                var value = childSnapshot.Object;
+                var valueJson = value.ToString();
+                var Leave = JsonConvert.DeserializeObject<VactionRequestModel>(valueJson);
+
+                if (string.IsNullOrEmpty(leaveType) || Leave.Type.Equals(leaveType, StringComparison.OrdinalIgnoreCase))
+                {
+                    var LeaveViewModel = new VactionRequestModel
+                    {
+                        Dateofrequest = Leave.Dateofrequest,
+                        StartDate = Leave.StartDate,
+                        EndDate = Leave.EndDate,
+                        Type = Leave.Type,
+                        Status = Leave.Status
+                    };
+                    Leaves.Add(LeaveViewModel);
+                }
+            }
+            return Leaves;
+        }
+
     }
 }

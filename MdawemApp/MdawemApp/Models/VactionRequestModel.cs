@@ -11,14 +11,14 @@ namespace MdawemApp.Models
         public string EndDate { get; set; }
         public string Reason { get; set; }
         public string UserID { get; set; }
-        public string Stauts { get; set; }
+        public string Status { get; set; }
 
 
         public string Dateofrequest { get; set; }
 
         public VactionRequestModel()
         {
-            Stauts = "Awaiting";
+            Status = "Awaiting";
             Dateofrequest = DateTime.Today.ToString("dd/MM/yyyy");
 
         }
