@@ -103,6 +103,39 @@ namespace MdawemApp.Helper
                 return Attendances;
            
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public async Task<List<LeaveManagement>> GetLeaves(string userId, string year, string month, string leaveType)
         {
             string path = $"users/{userId}/leaves/{year}/{month}";
