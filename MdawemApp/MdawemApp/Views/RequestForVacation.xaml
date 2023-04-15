@@ -51,7 +51,7 @@
                                 <Image   Grid.Column="0" Source="pencil.png"></Image>
                             </Frame>
                             <StackLayout  Grid.Column="1" VerticalOptions="Center">
-                                <Entry VerticalOptions="Start" Placeholder="Cause" FontAttributes="Bold" FontSize="Subtitle" TextColor="Black" />
+                                <Entry x:Name="causeEntry"  VerticalOptions="Start" Placeholder="Cause" FontAttributes="Bold" FontSize="Subtitle" TextColor="Black" />
                             </StackLayout>
                         </Grid>
                     </StackLayout>
@@ -151,7 +151,7 @@
                 </StackLayout>
             </Frame>
             <StackLayout Padding="0">
-                <Button Margin="0, 8, 0, 0" CornerRadius="10" Text="Request" BackgroundColor="#FF5733" TextColor="#FFFFFF" TextTransform="None"></Button>
+                <Button Margin="0, 8, 0, 0" x:Name="btntext"  Clicked="SubmitRequest" CornerRadius="10" Text="Request" BackgroundColor="#FF5733" TextColor="#FFFFFF" TextTransform="None"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
