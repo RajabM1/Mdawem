@@ -1,5 +1,6 @@
 using Firebase.Auth;
 using Firebase.Database;
+using Firebase.Database.Query;
 using MdawemApp.Models;
 using Newtonsoft.Json;
 using System;
@@ -20,7 +21,7 @@ namespace MdawemApp.Helper
         FirebaseAuthProvider authProvider;
 
         FirebaseClient client = new FirebaseClient(
-                "https://mdawemh-default-rtdb.firebaseio.com/"
+                "https://mdawemt-default-rtdb.firebaseio.com/"
             );
         public FirebaseHelper()
         {
@@ -103,17 +104,30 @@ namespace MdawemApp.Helper
                 return Attendances;
            
         }
-        public async Task<bool> Save(VactionReuestModel request)
+        public async Task<bool> SaveRequestToFireBase(VactionRequestModel vactionRequestModel)
         {
-
-
-            var data = await client.Child(nameof(VactionReuestModel)).PostAsync(JsonConvert.SerializeObject(request));
-            await App.Current.MainPage.DisplayAlert("Success", "Submit request  Success", "Done");
-            if (!string.IsNullOrEmpty(data.Key))
+            try
             {
-                return true;
+                string UserID = "UVI1lkjyHsRcIFDlxamAGKTH9hF3";
+
+                var data = await client.Child("users").
+                    Child(UserID).
+                    Child(DateTime.Parse(vactionRequestModel.StartDate).Year.ToString()).
+                    Child(DateTime.Parse(vactionRequestModel.StartDate).Month.ToString()).
+                    Child("Leaves").PostAsync(vactionRequestModel);
+
+                if (!string.IsNullOrEmpty(data.Key))
+                {
+                    return true;
+                }
             }
+            catch (Exception excption)
+            {
+                Console.WriteLine($"Error: {excption.Message}");
+            }
+
             return false;
         }
+
     }
 }
