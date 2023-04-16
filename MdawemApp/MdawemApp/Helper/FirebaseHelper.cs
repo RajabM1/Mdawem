@@ -49,14 +49,15 @@ namespace MdawemApp.Helper
 
         }
 		
-        public async Task<bool> Register(string email, string password)
+        public async Task<string> Register(string email, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
-                return true;
+                var user = token.User;
+                return user.LocalId;
             }
-            return false;
+            return null;
         }
 
         public async Task<bool> CheckIn(string userId, double latitude, double longitude)

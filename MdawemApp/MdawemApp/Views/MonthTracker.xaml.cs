@@ -32,7 +32,6 @@ namespace MdawemApp.Views
         }
 
 
-
         public async void DisplayAttendance(string year, string month)
         {
 

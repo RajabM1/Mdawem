@@ -1,4 +1,5 @@
-﻿using Firebase.Database;
+﻿using Firebase.Auth;
+using Firebase.Database;
 using Firebase.Database.Query;
 using MdawemApp.Helper;
 using MdawemApp.Models;
@@ -126,11 +127,15 @@ namespace MdawemApp.ViewModels
                 _employee.FirstName = _firstName;
                 _employee.LastName = _lastName;
                 _employee.PhoneNumber = _phoneNumber;
-                await firebaseHelper.Register(_emailAddress, _password);
+                var uid = await firebaseHelper.Register(_emailAddress, _password);
                 FirebaseClient client = new FirebaseClient(
                 "https://mdawemt-default-rtdb.firebaseio.com/"
             );
-                await client.Child("Employees").PostAsync(data);
+                await client.Child("users").
+                    Child(uid).
+                    Child("PersonalInfo").
+                    PostAsync(data);
+
                 await App.Current.MainPage.DisplayAlert("Success", "Saved Success", "Done");
             }
             else

@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MdawemApp.Views.notificationPage"
              Title="Notifications">
+    <ContentPage.ToolbarItems>
+               <ToolbarItem Order="Primary" IconImageSource="notification.png" Priority="0"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to notification Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"/>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout x:Name="NotificationsListView"  Spacing="3" />
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
