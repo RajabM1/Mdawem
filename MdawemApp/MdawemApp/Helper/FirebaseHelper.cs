@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +25,6 @@ namespace MdawemApp.Helper
         FirebaseClient client = new FirebaseClient(
         "https://mdawemt-default-rtdb.firebaseio.com/"
     );
-
-        FirebaseClient client = new FirebaseClient(
-                "https://mdawemh-default-rtdb.firebaseio.com/"
-            );
         public FirebaseHelper()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
@@ -145,6 +142,7 @@ namespace MdawemApp.Helper
                 return false;
             }
 
+        }
         public async Task<List<Attendance>> GetAttendance(string userId, string year, string month)
         {
 
@@ -175,6 +173,48 @@ namespace MdawemApp.Helper
                 Attendances.Add(attendanceViewModel);
             }
             return Attendances;
-        }
-    }
+        }
+        public async Task<List<Attendance>> GetEmployeesLocations(string year, string month)
+        {
+            string attendancePath = $"attendance/{year}/{month}";
+            var dataSnapshot = await client.Child("users").OnceAsync<object>();
+
+            var locations = new List<Attendance>();
+
+            foreach (var childSnapshot in dataSnapshot)
+            {
+                var userId = childSnapshot.Key;
+                var attendanceSnapshot = await client.Child($"users/{userId}/{attendancePath}").OnceAsync<object>();
+
+                foreach (var attendanceChildSnapshot in attendanceSnapshot)
+                {
+                    var value = attendanceChildSnapshot.Object;
+                    var locationJson = value.ToString();
+                    var location = JsonConvert.DeserializeObject<Attendance>(locationJson);
+
+
+                    var locationViewModel = new Attendance
+                    {
+                        Date = location.Date,
+                        Latitude = location.Latitude,
+                        Longitude = location.Longitude,
+                    };
+                    DateTime now = DateTime.Now;
+                    CultureInfo culture = new CultureInfo("en-US");
+                    string formattedDate = now.ToString("yyyy/MM/dd", culture);
+
+
+                    if (locationViewModel.Date == formattedDate)
+                    {
+                        locations.Add(locationViewModel);
+                    }
+
+                }
+            }
+
+            return locations;
+        }
+
+    }
+
 }
