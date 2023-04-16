@@ -1,4 +1,4 @@
-﻿using MdawemApp.Helper;
+using MdawemApp.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +90,11 @@ namespace MdawemApp.Views
                 await DisplayAlert("Alert", ex.Message, "OK");
                 isCheckInTrue = true;
             }
-        }
-    }
+		}
+		
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new RequestForVacation());
+        }
+    }
 }

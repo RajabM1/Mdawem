@@ -3,11 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MdawemApp.Views.Leaves"
              Title="Leaves">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" IconImageSource="plus.png" Priority="0" Clicked="Plus_Clicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Leaves Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="20">
+
+            <Grid Margin="20,0,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Row="0" Grid.Column="0" BorderColor="Black" CornerRadius="10" Padding="1">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0">
+                        <Button Text="ALL" Clicked="ALL_Clicked" BackgroundColor="white" TextColor="Black"/>
+                        <Button Text="Casual" Clicked="Casual_Clicked" BackgroundColor="white" TextColor="Black"/>
+                        <Button Text="Sick" Clicked="Sick_Clicked" BackgroundColor="white" TextColor="Black"/>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+
+            <ScrollView>
+                <StackLayout x:Name="LeavesListView"  Spacing="3" />
+            </ScrollView>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -17,7 +17,7 @@
                 HorizontalOptions="CenterAndExpand"
                 Clicked="CheckOut_Clicked"/>
 
-
+            <Button Text="Request for vacation" Clicked="Button_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
