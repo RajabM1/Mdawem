@@ -57,45 +57,6 @@ namespace MdawemApp.Helper
             return false;
         }
        
-        public async Task<List<LocationViewModel>> GetEmployeesLocations(string year, string month)
-        {
-            string attendancePath = $"attendance/{year}/{month}";
-            var dataSnapshot = await client.Child("users").OnceAsync<object>();
-
-            var locations = new List<LocationViewModel>();
-
-            foreach (var childSnapshot in dataSnapshot)
-            {
-                var userId = childSnapshot.Key;
-                var attendanceSnapshot = await client.Child($"users/{userId}/{attendancePath}").OnceAsync<object>();
-
-                foreach (var attendanceChildSnapshot in attendanceSnapshot)
-                {
-                    var value = attendanceChildSnapshot.Object;
-                    var locationJson = value.ToString();
-                    var location = JsonConvert.DeserializeObject<LocationViewModel>(locationJson);
-                    
-
-                    var locationViewModel = new LocationViewModel
-                    {
-                        Date = location.Date,
-                        Latitude = location.Latitude,
-                        Longitude = location.Longitude,
-                    };
-                    DateTime now = DateTime.Now;
-                    CultureInfo culture = new CultureInfo("en-US");
-                    string formattedDate = now.ToString("yyyy/MM/dd", culture);
-                    
-
-                    if (locationViewModel.Date == formattedDate)
-                     {
-                          locations.Add(locationViewModel);
-                      } 
-
-                }
-            }
-
-            return locations;
-        }
+       
     }
 }
