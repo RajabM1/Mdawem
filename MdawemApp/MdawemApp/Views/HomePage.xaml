@@ -6,9 +6,16 @@
              >
     <ContentPage.Content >
         <StackLayout>
-            <Label Text="Welcome to HomePage!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Button Text="Check in"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                Clicked="CheckIn_Clicked"
+                x:Name="CheckIn"/>
+            <Button x:Name="CheckOut"
+                Text="Check out"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                Clicked="CheckOut_Clicked"/>
 
 
         </StackLayout>
