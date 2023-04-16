@@ -33,7 +33,7 @@ namespace MdawemApp.Views
             DateTime now = DateTime.Now;
             CultureInfo culture = new CultureInfo("en-US");
             string formattedDate = now.ToString("yyyy/MM/dd", culture);
-            var location = await _userRepo(formattedDate.Split('/')[0], formattedDate.Split('/')[1]);
+            var location = await _userRepo.GetEmployeesLocations(formattedDate.Split('/')[0], formattedDate.Split('/')[1]);
             if (location.Count == 0)
             {
                 await DisplayAlert("No check-in", "No check-in for today.", "cancle");

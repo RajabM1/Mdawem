@@ -126,12 +126,16 @@ namespace MdawemApp.Helper
                         .Child(attendanceKey)
                         .PutAsync(attendanceData);
                 }
-                else
-                {
-                    return false;
-                }
+                
+               return true;
 			}
-		}
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+
+                return false;
+            }
+        }
 
 
         public async Task<bool> ResetPassword(string email)
@@ -246,7 +250,7 @@ namespace MdawemApp.Helper
 
         public async Task<List<Attendance>> GetEmployeesLocations(string year, string month)
         {
-            string attendancePath = $"attendance/{year}/{month}";
+            string attendancePath = $"Attendance/{year}/{month}";
             var dataSnapshot = await client.Child("users").OnceAsync<object>();
 
             var locations = new List<Attendance>();
