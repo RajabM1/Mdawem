@@ -162,7 +162,7 @@ namespace MdawemApp.Helper
         public async Task<List<Attendance>> GetAttendance(string userId, string year, string month)
         {
 
-                string path = $"users/{userId}/locations/{year}/{month}";
+                string path = $"users/{userId}/Attendance/{year}/{month}";
 
                 var dataSnapshot = await client.Child(path).OnceAsync<object>();
 
@@ -195,7 +195,7 @@ namespace MdawemApp.Helper
         {
             try
             {
-                string UserID = "UVI1lkjyHsRcIFDlxamAGKTH9hF3";
+                var UserID = Application.Current.Properties["UID"].ToString();
 
                 var data = await client.Child("users").
                     Child(UserID).

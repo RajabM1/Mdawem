@@ -22,14 +22,15 @@ namespace MdawemApp.Views
             InitializeComponent();
             DateTime currentDate = DateTime.Now;
             string CurrentYear = currentDate.Year.ToString();
-
-            DisplayAttendance("UVI1lkjyHsRcIFDlxamAGKTH9hF3", CurrentYear, null);
+            var UID = Application.Current.Properties["UID"].ToString();
+            DisplayAttendance(CurrentYear, null);
         }
-        public async void DisplayAttendance(string UserId, string year, string type)
+        public async void DisplayAttendance(string year, string type)
         {
-            string userId = "UVI1lkjyHsRcIFDlxamAGKTH9hF3";
 
-            var leave = await _userRepo.GetLeaves(userId, year, type);
+            var UID = Application.Current.Properties["UID"].ToString();
+
+            var leave = await _userRepo.GetLeaves(UID, year, type);
 
             if(leave != null )
             {
@@ -194,7 +195,7 @@ namespace MdawemApp.Views
             DateTime currentDate = DateTime.Now;
             string currentYear = currentDate.Year.ToString();
 
-            DisplayAttendance("UVI1lkjyHsRcIFDlxamAGKTH9hF3", currentYear, leaveType);
+            DisplayAttendance(currentYear, leaveType);
         }
         private void ALL_Clicked(object sender, EventArgs e)
         {

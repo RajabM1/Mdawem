@@ -28,17 +28,17 @@ namespace MdawemApp.Views
             string monthString = currentDate.Month.ToString("D2");
             SelectedMonthYearLabel.Text = $"{CurrentMonthS} {CurrentYear}";
 
-
-            DisplayAttendance("7XQCOtDQ6FXS4YtONJF1XgTUKSZ2", CurrentYear, monthString);
+            DisplayAttendance(CurrentYear, monthString);
         }
 
 
 
-        public async void DisplayAttendance(string UserId, string year, string month)
+        public async void DisplayAttendance(string year, string month)
         {
-            string userId = "7XQCOtDQ6FXS4YtONJF1XgTUKSZ2";
 
-            Attends = await _userRepo.GetAttendance(userId, year, month);
+            var UID = Application.Current.Properties["UID"].ToString();
+
+            Attends = await _userRepo.GetAttendance(UID, year, month);
 
             if (Attends != null)
             {
@@ -157,8 +157,7 @@ namespace MdawemApp.Views
                     string monthString = monthNumber.ToString("D2");
                     SelectedMonthYearLabel.Text = $"{month} {year}";
 
-                    string userId = "7XQCOtDQ6FXS4YtONJF1XgTUKSZ2";
-                    DisplayAttendance(userId, year, monthString);
+                    DisplayAttendance(year, monthString);
 
                 }
             }
