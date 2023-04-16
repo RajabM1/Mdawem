@@ -22,24 +22,18 @@ namespace MdawemApp.Views
         {
             InitializeComponent();
             _userRepo = new FirebaseHelper();
-            //_userRepo.GetLocations("2023", "04");
 
              DisplayDeviceLocation();
 
 
         }
-        public async Task<Location> GetDeviceLocation()
-        {
-            var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
-            var location = await Geolocation.GetLocationAsync(request);
-            return location;
-        }
+        
         private async void DisplayDeviceLocation()
         {
             DateTime now = DateTime.Now;
             CultureInfo culture = new CultureInfo("en-US");
             string formattedDate = now.ToString("yyyy/MM/dd", culture);
-            var location = await _userRepo.GetLocations(formattedDate.Split('/')[0], formattedDate.Split('/')[1]);
+            var location = await _userRepo.GetEmployeesLocations(formattedDate.Split('/')[0], formattedDate.Split('/')[1]);
             if(location.Count == 0)
             {
                 await DisplayAlert("No check-in", "No check-in for today.", "cancle");
