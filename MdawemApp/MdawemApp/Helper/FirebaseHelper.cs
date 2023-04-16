@@ -1,5 +1,6 @@
 using Firebase.Auth;
 using Firebase.Database;
+using Firebase.Database.Query;
 using MdawemApp.Models;
 using Newtonsoft.Json;
 using System;
@@ -20,7 +21,7 @@ namespace MdawemApp.Helper
         FirebaseAuthProvider authProvider;
 
         FirebaseClient client = new FirebaseClient(
-                "https://mdawemh-default-rtdb.firebaseio.com/"
+                "https://mdawemt-default-rtdb.firebaseio.com/"
             );
         public FirebaseHelper()
         {
@@ -103,5 +104,62 @@ namespace MdawemApp.Helper
                 return Attendances;
            
         }
+        public async Task<bool> SaveRequestToFireBase(VactionRequestModel vactionRequestModel)
+        {
+            try
+            {
+                string UserID = "UVI1lkjyHsRcIFDlxamAGKTH9hF3";
+
+                var data = await client.Child("users").
+                    Child(UserID).
+                    Child("Leaves").
+                    Child(DateTime.Parse(vactionRequestModel.StartDate).Year.ToString()).
+                    PostAsync(vactionRequestModel);
+
+                if (!string.IsNullOrEmpty(data.Key))
+                {
+                    return true;
+                }
+            }
+            catch (Exception excption)
+            {
+                Console.WriteLine($"Error: {excption.Message}");
+            }
+
+            return false;
+        }
+
+        public async Task<List<VactionRequestModel>> GetLeaves(string userId, string year, string leaveType)
+        {
+            string path = $"users/{userId}/Leaves/{year}";
+            var dataSnapshot = await client.Child(path).OnceAsync<object>();
+            if (!dataSnapshot.Any())
+            {
+                return null;
+            }
+
+            var Leaves = new List<VactionRequestModel>();
+            foreach (var childSnapshot in dataSnapshot)
+            {
+                var value = childSnapshot.Object;
+                var valueJson = value.ToString();
+                var Leave = JsonConvert.DeserializeObject<VactionRequestModel>(valueJson);
+
+                if (string.IsNullOrEmpty(leaveType) || Leave.Type.Equals(leaveType, StringComparison.OrdinalIgnoreCase))
+                {
+                    var LeaveViewModel = new VactionRequestModel
+                    {
+                        Dateofrequest = Leave.Dateofrequest,
+                        StartDate = Leave.StartDate,
+                        EndDate = Leave.EndDate,
+                        Type = Leave.Type,
+                        Status = Leave.Status
+                    };
+                    Leaves.Add(LeaveViewModel);
+                }
+            }
+            return Leaves;
+        }
+
     }
 }
