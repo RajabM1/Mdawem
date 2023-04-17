@@ -68,7 +68,7 @@ namespace MdawemApp.Views
                 if (isChanged)
                 {
                     await DisplayAlert("Change Password", "Password has been changed.", "OK");
-                    await Navigation.PushAsync(new HomePage());
+                    await Navigation.PopAsync();
                 }
                 else
                 {
