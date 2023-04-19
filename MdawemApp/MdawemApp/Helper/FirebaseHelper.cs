@@ -287,6 +287,29 @@ namespace MdawemApp.Helper
             }
             return locations;
         }
-    }
 
+        public async Task<Employee> GetUserInformation()
+        {
+            string userId = Application.Current.Properties["UID"].ToString();
+
+            try
+            {
+                var response = await client.Child("users").Child(userId).Child("PersonalInfo").OnceAsync<object>();
+                foreach (var item in response)
+                {
+                    var value = item.Object;
+                    var valueJson = value.ToString();
+                    var personalInfo = JsonConvert.DeserializeObject<Employee>(valueJson);
+                    return personalInfo;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving user information for user {userId}: {ex.Message}");
+                return null;
+            }
+        }
+    }
 }
