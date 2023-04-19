@@ -14,12 +14,25 @@ namespace MdawemApp.Views
     public partial class HomePage : ContentPage
     {
         bool isCheckInTrue = false;
+        bool isCheckInToggled = false;
+        bool isCheckOutToggled = false;
         FirebaseHelper firebaseHelper;
         public HomePage()
         {
             InitializeComponent();
             firebaseHelper = new FirebaseHelper();
             NavigationPage.SetHasNavigationBar(this, true);
+            SetInformations();
+            BindingContext = this;
+        }
+
+        async void SetInformations()
+        {
+            var infos = await firebaseHelper.GetUserInformation();
+            string name = $"{infos.FirstName}, {infos.LastName}";
+            Name.Text = name;
+            DateTime dateTime = DateTime.Now;
+            TodayDate.Text = dateTime.ToString("dd MMMM yyyy");
         }
 
         private async void CheckIn_Clicked(object sender, EventArgs e)
@@ -91,10 +104,51 @@ namespace MdawemApp.Views
                 isCheckInTrue = true;
             }
 		}
-		
-        private async void Button_Clicked(object sender, EventArgs e)
+
+        private void CheckInOnClicked(object sender, EventArgs e)
+        {
+            if (!isCheckInToggled)
+            {
+                DateTime now = DateTime.Now;
+                string formattedTime = now.ToString("h:mm");
+                checkIn.Text = formattedTime;
+                checkIn.IsVisible = true;
+                CheckIn_Clicked(sender, e);
+            }
+            else
+            {
+                checkIn.Text = "";
+                checkIn.IsVisible = false;
+            }
+            isCheckInToggled = !isCheckInToggled;
+        }
+
+        private void CheckOutOnClicked(object sender, EventArgs e)
+        {
+            if (!isCheckOutToggled)
+            {
+                DateTime now = DateTime.Now;
+                string formattedTime = now.ToString("h:mm");
+                checkOut.Text = formattedTime;
+                checkOut.IsVisible = true;
+                CheckOut_Clicked(sender, e);
+            }
+            else
+            {
+                checkOut.Text = "";
+                checkOut.IsVisible = false;
+            }
+            isCheckOutToggled = !isCheckOutToggled;
+        }
+
+        private async void RequestOnClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RequestForVacation());
-        }
-    }
+        }
+
+        private async void OnProfileIconClick(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProfilePage());
+        }
+    }
 }
