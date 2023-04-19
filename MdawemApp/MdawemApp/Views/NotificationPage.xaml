@@ -6,9 +6,12 @@
     <ContentPage.ToolbarItems>
                <ToolbarItem Order="Primary" IconImageSource="notification.png" Priority="0"/>
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
+        <StackLayout Margin="10">
         <ScrollView>
-            <StackLayout x:Name="NotificationsListView"  Spacing="3" />
+            <StackLayout  x:Name="NotificationsListView"  Spacing="3" />
         </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

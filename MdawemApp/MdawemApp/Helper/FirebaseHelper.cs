@@ -1,13 +1,14 @@
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Database.Query;
-using Firebase.Database.Query;
 using MdawemApp.Models;
+using MdawemApp.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -288,6 +289,103 @@ namespace MdawemApp.Helper
             }
             return locations;
         }
+
+        public async Task<List<object>> GetNotification()
+        {
+            DateTime currentDate = DateTime.Now;
+            string CurrentYear = currentDate.Year.ToString();
+
+            var dataSnapshot = await client.Child("users").OnceAsync<object>();
+
+            string LeavesPath = $"Leaves/{CurrentYear}";
+
+            var Vaction = new List<object>();
+
+            foreach (var childSnapshot in dataSnapshot)
+            {
+                var userId = childSnapshot.Key;
+
+                var LeavesSnapshot = await client.Child($"users/{userId}/{LeavesPath}").OnceAsync<object>();
+
+                if (LeavesSnapshot.Count != 0)
+                {
+                    var DataSnapshot = await client.Child($"users/{userId}/PersonalInfo").OnceAsync<object>();
+
+                    foreach (var LeavesChildSnapshot in LeavesSnapshot)
+                    {
+                        var value = LeavesChildSnapshot.Object;
+                        var LeavesJson = value.ToString();
+                        var Leaves = JsonConvert.DeserializeObject<VactionRequestModel>(LeavesJson);
+
+                        var Notification = new NotificationData();
+
+                        foreach (var Data in DataSnapshot)
+                        {
+                            var valueD = Data.Object;
+                            var DataJson = valueD.ToString();
+                            var Info = JsonConvert.DeserializeObject<Employee>(DataJson);
+
+                            Notification.FirstName = Info.FirstName;
+                            Notification.LastName = Info.LastName;
+                        }
+                        Notification.UserId = userId;
+                        Notification.DateOfRequest = Leaves.Dateofrequest;
+                        Notification.StartDate = Leaves.StartDate;
+                        Notification.EndDate = Leaves.EndDate;
+                        Notification.Type = Leaves.Type;
+                        Notification.Status = Leaves.Status;
+                        Notification.Reason = Leaves.Reason;
+                        Notification.LeaveId = LeavesChildSnapshot.Key;
+
+                        Vaction.Add(Notification);
+                    }
+                }
+            }
+            return Vaction;
+        }
+        public async Task<bool> UpdateVacationStatus(string Status, string userId,string LeaveID)
+        {
+            try
+            {
+                DateTime currentDate = DateTime.Now;
+                //string formattedDate = currentDate.ToString("yyyy/MM/dd");
+                //string formattedDateWithOutDay = currentDate.ToString("yyyy/MM");
+                //string attendanceKey = Preferences.Get("LeavesKey", "Awaiting");
+
+                var LeavesSnapshot = await client
+                     .Child("users")
+                     .Child(userId)
+                     .Child("Leaves")
+                     .Child("2023")
+                     .Child(LeaveID)
+                     .OnceSingleAsync<Dictionary<string, object>>();
+
+                if (LeavesSnapshot != null)
+                {
+                    var attendanceData = LeavesSnapshot;
+                    attendanceData["Status"] = Status;
+
+                    await client
+                        .Child("users")
+                        .Child(userId)
+                        .Child("Leaves")
+                        .Child("2023")
+                        .Child(LeaveID)
+                        .PutAsync(attendanceData);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+
+                return false;
+            }
+        }
+        
+    }
+
 
 
         public async Task<Employee> GetUserInformation()
