@@ -34,6 +34,7 @@ namespace MdawemApp.Helper
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
                 Application.Current.Properties["UID"] = token.User.LocalId;
+                Preferences.Set("token", token.FirebaseToken);
                 return token.FirebaseToken;
             }
             {
@@ -287,6 +288,19 @@ namespace MdawemApp.Helper
             }
             return locations;
         }
-    }
+
+        public async Task<bool> ChangePassword(string token, string newPassword)
+        {
+            try
+            {
+                await authProvider.ChangeUserPassword(token, newPassword);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+    }
 
 }
