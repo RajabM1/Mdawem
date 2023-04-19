@@ -28,9 +28,11 @@ namespace MdawemApp.Views
 
             if (Notification != null)
             {
+                NotificationsListView.Children.Clear();
+
                 foreach (NotificationData Notifications in Notification)
                 {
-                    string Content = Notifications.FirstName + " " + Notifications.LastName + " has requested for vacation.";
+                    string Content = Notifications.FirstName + " " + Notifications.LastName;
                     string Time = Notifications.DateOfRequest;
 
                     StackLayout NotificationStackLayout = new StackLayout();
@@ -41,7 +43,9 @@ namespace MdawemApp.Views
                         RowDefinitions =
                     {
                         new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                        new RowDefinition { Height = new GridLength(1, GridUnitType.Star) }
+                        new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                        new RowDefinition { Height = new GridLength(1, GridUnitType.Star) } 
+
                     },
                         ColumnDefinitions =
                     {
@@ -54,29 +58,40 @@ namespace MdawemApp.Views
                     {
                         Text = $"{Content}",
                         Margin = new Thickness(0),
-                        Padding = new Thickness(5, 0, 0, 0),
+                        //Padding = new Thickness(5),
                         FontAttributes = FontAttributes.Bold
 
                     };
                     Grid.SetRow(ContentLabel, 0);
                     Grid.SetColumn(ContentLabel, 1);
 
+                    Label StatusLabel = new Label 
+                    {
+                        Text = "has requested for vacation.",
+                        Margin = new Thickness(0),
+                        TextColor= Color.Gray,
+                    };
+                    Grid.SetRow(StatusLabel, 1); 
+                    Grid.SetColumn(StatusLabel, 1);
+
                     Label timeLabel = new Label
                     {
                         Text = $"{Time}",
                         Margin = new Thickness(0),
                     };
-                    Grid.SetRow(timeLabel, 1);
+                    Grid.SetRow(timeLabel, 2);
                     Grid.SetColumn(timeLabel, 1);
 
                     Image moreIcon = new Image
                     {
-                        Source = "moreIcon.png"
+                        Source = "moreIcon.png",
+                        HeightRequest= 30,
+                        WidthRequest= 30,
                     };
 
                     Grid.SetRow(moreIcon, 0);
                     Grid.SetColumn(moreIcon, 2);
-                    Grid.SetRowSpan(moreIcon, 2);
+                    Grid.SetRowSpan(moreIcon, 3);
 
                     var moreIconTapGestureRecognizer = new TapGestureRecognizer();
                     moreIconTapGestureRecognizer.Tapped += MoreClicked;
@@ -88,8 +103,9 @@ namespace MdawemApp.Views
                     };
                     Grid.SetRow(image, 0);
                     Grid.SetColumn(image, 0);
-                    Grid.SetRowSpan(image, 2);
+                    Grid.SetRowSpan(image, 3);
 
+                    grid.Children.Add(StatusLabel);
                     grid.Children.Add(ContentLabel);
                     grid.Children.Add(timeLabel);
                     grid.Children.Add(moreIcon);
@@ -119,6 +135,7 @@ namespace MdawemApp.Views
 
         private void MoreClicked(object sender, EventArgs e)
         {
+           // DisplayAlert("ok", "hiiiii", "cancle");
         }
         
     }

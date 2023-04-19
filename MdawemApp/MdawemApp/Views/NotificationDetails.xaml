@@ -4,7 +4,7 @@
              x:Class="MdawemApp.Views.NotificationDetails">
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Margin="20">
+            <StackLayout Margin="20" BackgroundColor="#E8E8E8">
                 <StackLayout BackgroundColor="#2196F3" Padding="10">
                     <Label Text="Request Details" FontSize="Large" TextColor="White" />
                 </StackLayout>
