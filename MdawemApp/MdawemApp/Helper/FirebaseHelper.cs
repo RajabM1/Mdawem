@@ -35,6 +35,7 @@ namespace MdawemApp.Helper
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
                 Application.Current.Properties["UID"] = token.User.LocalId;
+                Preferences.Set("token", token.FirebaseToken);
                 return token.FirebaseToken;
             }
             {
@@ -288,6 +289,7 @@ namespace MdawemApp.Helper
             }
             return locations;
         }
+
         public async Task<List<object>> GetNotification()
         {
             DateTime currentDate = DateTime.Now;
@@ -384,4 +386,90 @@ namespace MdawemApp.Helper
         
     }
 
+
+
+        public async Task<Employee> GetUserInformation()
+        {
+            string userId = Application.Current.Properties["UID"].ToString();
+
+            try
+            {
+                var response = await client.Child("users").Child(userId).Child("PersonalInfo").OnceAsync<object>();
+                foreach (var item in response)
+                {
+                    var value = item.Object;
+                    var valueJson = value.ToString();
+                    var personalInfo = JsonConvert.DeserializeObject<Employee>(valueJson);
+                    return personalInfo;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving user information for user {userId}: {ex.Message}");
+                return null;
+            }
+        }
+    }
 }
+
+        public async Task<bool> ChangePassword(string token, string newPassword)
+        {
+            try
+            {
+                await authProvider.ChangeUserPassword(token, newPassword);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+    }
+
+
+        public async Task<List<Employee>> GetInfo()
+        {
+            var dataSnapshot = await client.Child("Employee").OnceAsync<object>();
+            if (!dataSnapshot.Any())
+            {
+                return null;
+            }
+
+            var Info = new List<Employee>();
+            foreach (var childSnapshot in dataSnapshot)
+            {
+                var value = childSnapshot.Object;
+                var valueJson = value.ToString();
+                var Infos = JsonConvert.DeserializeObject<Employee>(valueJson);
+
+
+
+                var InfoViewModel = new Employee
+                {
+
+                    FirstName = Infos.FirstName,
+                    Email = Infos.Email,
+                    HomeAddress = Infos.HomeAddress,
+                    PhoneNumber = Infos.PhoneNumber,
+                    DateOfBirth = Infos.DateOfBirth,
+
+                };
+                Info.Add(InfoViewModel);
+
+            }
+            return Info;
+        }
+        public async Task UpdateEmployee(Employee updatedEmployee)
+        {
+
+            var employeeRef = client.Child("Employee");
+            string employeeJson = JsonConvert.SerializeObject(updatedEmployee);
+            await client.Child("Employee").PutAsync(employeeJson);
+        }
+
+    }
+}
+
+
