@@ -2,12 +2,115 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MdawemApp.Views.ProfilePage"
-             Title="Profile Page">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to ProfilePage!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+              Title="Profile Page">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary"  IconImageSource="logout.png" Priority="1"  Clicked="Lougoutbtn" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout >
+
+        <StackLayout  Margin="0,10">
+            <Frame Padding="0" WidthRequest="150"   HeightRequest="150" CornerRadius="160"   BorderColor="#ff5733" IsClippedToBounds="True"
+            HorizontalOptions="CenterAndExpand"  VerticalOptions="Center"  >
+                <Image Source="https://cdn-icons-png.flaticon.com/512/3871/3871011.png"
+
+                  Aspect="AspectFill"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            </Frame>
+            <Frame Grid.Row="1" WidthRequest="370" HeightRequest="110"  HorizontalOptions="Center" VerticalOptions="Center"
+             CornerRadius="15" HasShadow="True" BorderColor="#ff5733" Padding="10,0,-10,0"  Margin="15">
+                <StackLayout>
+                    <Label  x:Name="FirstName" FontSize="24" FontAttributes="Bold" HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"  />
+                    <Label Text="Office: Developer | Joined 2023" FontSize="16" FontAttributes="Bold"
+                     HorizontalTextAlignment="Center"  VerticalTextAlignment="Center" />
+                    <Label Text="20 $"  FontSize="20" FontAttributes="Bold"  HorizontalTextAlignment="Center"
+                          VerticalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </Frame>
         </StackLayout>
-    </ContentPage.Content>
+        <!-- Frame containing vacation days, number of vacations, income, and overtime -->
+        <Frame Padding="0"  HeightRequest="70" WidthRequest="200"  BackgroundColor="#CDCDCD" HasShadow="True" BorderColor="White" Margin="10,0,10,0" CornerRadius="10 " >
+            <Grid Margin="0,5,5,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Vacation Days " Grid.Row="0" Grid.Column="0" FontAttributes="Bold"  HorizontalOptions="Center"/>
+                <Label Text="   5" Grid.Row="1" Grid.Column="0"  HorizontalOptions="Center"/>
+                <Label Text="  Income  " Grid.Row="0" Grid.Column="1" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="100 $" Grid.Row="1" Grid.Column="1"  HorizontalOptions="Center"/>
+                <Label Text="Overtime" Grid.Row="0" Grid.Column="2" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="03:06" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" />
+            </Grid>
+        </Frame>
+
+        <!-- Frame containing email and contact information -->
+        <Frame CornerRadius="26" Padding="10,5" HeightRequest="30" BackgroundColor="White" HasShadow="True" BorderColor="Gray" Margin="25,20,25,20"  >
+            <StackLayout Orientation="Horizontal" >
+                <Label Text =" @ " VerticalOptions="Center"  FontSize="Large" TextColor="#ff5733" FontAttributes="Bold"/>
+                <Label x:Name="Email"  FontSize="Body" VerticalOptions="CenterAndExpand"  FontAttributes="Bold" Margin="10,0,0,0"  TextDecorations="Underline" />
+            </StackLayout>
+        </Frame>
+        <!-- Frame containing pencil icon-->
+        <ImageButton BackgroundColor="#FF5733" Padding="4"  HorizontalOptions="End" Margin="10,0,10,0" Source="pencil.png" WidthRequest="20 " HeightRequest="20" Clicked="update">
+
+        </ImageButton>
+
+
+        <StackLayout Margin="0,-25,0,0" Padding="0" >
+            <Grid ColumnSpacing="10" RowSpacing="10"   Padding="9,0,-9,0" >
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="54"  />
+                    <RowDefinition Height="54" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions Margin="0,0,0,20"  >
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="180" />
+                </Grid.ColumnDefinitions>
+                <!-- Top-left cell: ID -->
+                <Frame   BorderColor="Black"  Grid.Row="0" Grid.Column="0" Padding="9" HeightRequest="40" WidthRequest="160" CornerRadius="40" >
+                    <AbsoluteLayout>
+                        <Image Source="Id.png" Margin="0,0,5,0" HeightRequest="20" WidthRequest="20" HorizontalOptions="Start" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                        <Label Text="12028537" HorizontalOptions="CenterAndExpand" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                    </AbsoluteLayout>
+                </Frame>
+
+                <!-- Top-right cell: Address -->
+                <Frame  BorderColor="Black" Grid.Row="0" Grid.Column="1" Padding="9" HeightRequest="40" WidthRequest="160" CornerRadius="40">
+                    <AbsoluteLayout>
+                        <Image Source="Location.png" Margin="0,0,5,0" HeightRequest="20" WidthRequest="20" HorizontalOptions="Start" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                        <Entry Placeholder="Address"  x:Name="address"  HeightRequest="40" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                    </AbsoluteLayout>
+                </Frame>
+
+                <!-- Bottom-left cell: Phone Number -->
+                <Frame  BorderColor="Black" Grid.Row="1" Grid.Column="0" Padding="9" HeightRequest="40" WidthRequest="160" CornerRadius="40">
+                    <AbsoluteLayout>
+                        <Image Source="Phone.png" Margin="0,0,5,0" HeightRequest="20" WidthRequest="20" HorizontalOptions="Start" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                        <Entry Placeholder="Phone Number"  x:Name="phone" BackgroundColor="Transparent" HeightRequest="30" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                    </AbsoluteLayout>
+                </Frame>
+
+                <!-- Bottom-right cell: Date of Birth -->
+                <Frame   BorderColor="Black" Grid.Row="1" Grid.Column="1" Padding="9" HeightRequest="40" WidthRequest="15" CornerRadius="40">
+                    <AbsoluteLayout>
+                        <Image Source="birthday.png" Margin="0,0,5,0" HeightRequest="40" WidthRequest="30" HorizontalOptions="Start" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                        <Entry Placeholder="Date of Birth"  x:Name="birthday" BackgroundColor="Transparent" HeightRequest="30" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+                    </AbsoluteLayout>
+                </Frame>
+            </Grid>
+        </StackLayout>
+
+    </StackLayout>
+
+
 </ContentPage>

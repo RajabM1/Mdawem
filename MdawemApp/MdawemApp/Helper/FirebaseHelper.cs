@@ -34,6 +34,7 @@ namespace MdawemApp.Helper
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
                 Application.Current.Properties["UID"] = token.User.LocalId;
+                Preferences.Set("token", token.FirebaseToken);
                 return token.FirebaseToken;
             }
             {
@@ -288,6 +289,7 @@ namespace MdawemApp.Helper
             return locations;
         }
 
+
         public async Task<Employee> GetUserInformation()
         {
             string userId = Application.Current.Properties["UID"].ToString();
@@ -313,3 +315,63 @@ namespace MdawemApp.Helper
         }
     }
 }
+
+        public async Task<bool> ChangePassword(string token, string newPassword)
+        {
+            try
+            {
+                await authProvider.ChangeUserPassword(token, newPassword);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+    }
+
+
+        public async Task<List<Employee>> GetInfo()
+        {
+            var dataSnapshot = await client.Child("Employee").OnceAsync<object>();
+            if (!dataSnapshot.Any())
+            {
+                return null;
+            }
+
+            var Info = new List<Employee>();
+            foreach (var childSnapshot in dataSnapshot)
+            {
+                var value = childSnapshot.Object;
+                var valueJson = value.ToString();
+                var Infos = JsonConvert.DeserializeObject<Employee>(valueJson);
+
+
+
+                var InfoViewModel = new Employee
+                {
+
+                    FirstName = Infos.FirstName,
+                    Email = Infos.Email,
+                    HomeAddress = Infos.HomeAddress,
+                    PhoneNumber = Infos.PhoneNumber,
+                    DateOfBirth = Infos.DateOfBirth,
+
+                };
+                Info.Add(InfoViewModel);
+
+            }
+            return Info;
+        }
+        public async Task UpdateEmployee(Employee updatedEmployee)
+        {
+
+            var employeeRef = client.Child("Employee");
+            string employeeJson = JsonConvert.SerializeObject(updatedEmployee);
+            await client.Child("Employee").PutAsync(employeeJson);
+        }
+
+    }
+}
+
+
