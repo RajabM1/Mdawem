@@ -287,6 +287,47 @@ namespace MdawemApp.Helper
             }
             return locations;
         }
-    }
 
+        public async Task<List<Employee>> GetInfo()
+        {
+            var dataSnapshot = await client.Child("Employee").OnceAsync<object>();
+            if (!dataSnapshot.Any())
+            {
+                return null;
+            }
+
+            var Info = new List<Employee>();
+            foreach (var childSnapshot in dataSnapshot)
+            {
+                var value = childSnapshot.Object;
+                var valueJson = value.ToString();
+                var Infos = JsonConvert.DeserializeObject<Employee>(valueJson);
+
+
+
+                var InfoViewModel = new Employee
+                {
+
+                    FirstName = Infos.FirstName,
+                    Email = Infos.Email,
+                    HomeAddress = Infos.HomeAddress,
+                    PhoneNumber = Infos.PhoneNumber,
+                    DateOfBirth = Infos.DateOfBirth,
+
+                };
+                Info.Add(InfoViewModel);
+
+            }
+            return Info;
+        }
+        public async Task UpdateEmployee(Employee updatedEmployee)
+        {
+
+            var employeeRef = client.Child("Employee");
+            string employeeJson = JsonConvert.SerializeObject(updatedEmployee);
+            await client.Child("Employee").PutAsync(employeeJson);
+        }
+
+    }
 }
+
