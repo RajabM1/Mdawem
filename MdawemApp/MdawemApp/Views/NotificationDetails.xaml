@@ -4,9 +4,61 @@
              x:Class="MdawemApp.Views.NotificationDetails">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout Margin="20">
+                <StackLayout BackgroundColor="#2196F3" Padding="10">
+                    <Label Text="Request Details" FontSize="Large" TextColor="White" />
+                </StackLayout>
+
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="First Name" VerticalOptions="Center" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding FirstName}" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Text="Last Name" VerticalOptions="Center" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding LastName}" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Text="Date of Request" VerticalOptions="Center" />
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding DateOfRequest}" />
+
+                    <Label Grid.Row="3" Grid.Column="0" Text="Type of Request" VerticalOptions="Center" />
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Type}" />
+
+                    <Label Grid.Row="4" Grid.Column="0" Text="Status" VerticalOptions="Center" />
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding Status}" />
+
+                    <Label Grid.Row="5" Grid.Column="0" Text="Reason" VerticalOptions="Center" />
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding Reason}" />
+
+                    <Label Grid.Row="6" Grid.Column="0" Text="From" VerticalOptions="Center" />
+                    <Label Grid.Row="6" Grid.Column="1" Text="{Binding StartDate}"/>
+
+                    <Label Grid.Row="7" Grid.Column="0" Text="To" VerticalOptions="Center" />
+                    <Label Grid.Row="7" Grid.Column="1" Text="{Binding EndDate}"/>
+
+                    <Button Grid.Row="8" Grid.Column="0" Text="Accept" BackgroundColor="#4CAF50" TextColor="White" Margin="10,20,10,0" Clicked="Accept_Clicked"/>
+                    <Button Grid.Row="8" Grid.Column="1" Text="Reject" BackgroundColor="red" TextColor="White" Margin="10,20,10,0" Clicked="Reject_Clicked" />
+                </Grid>
+                <Label x:Name="UserID" IsVisible="false" Text="{Binding UserId}"/>
+                <Label x:Name="LeaveId" IsVisible="false" Text="{Binding LeaveId}"/>
+
+
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
