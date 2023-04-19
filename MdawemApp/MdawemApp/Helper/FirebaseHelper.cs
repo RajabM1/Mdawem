@@ -383,10 +383,6 @@ namespace MdawemApp.Helper
                 return false;
             }
         }
-        
-    }
-
-
 
         public async Task<Employee> GetUserInformation()
         {
@@ -411,9 +407,6 @@ namespace MdawemApp.Helper
                 return null;
             }
         }
-    }
-}
-
         public async Task<bool> ChangePassword(string token, string newPassword)
         {
             try
@@ -426,9 +419,6 @@ namespace MdawemApp.Helper
                 return false;
             }
         }
-    }
-
-
         public async Task<List<Employee>> GetInfo()
         {
             var dataSnapshot = await client.Child("Employee").OnceAsync<object>();
@@ -468,8 +458,15 @@ namespace MdawemApp.Helper
             string employeeJson = JsonConvert.SerializeObject(updatedEmployee);
             await client.Child("Employee").PutAsync(employeeJson);
         }
-
     }
 }
+
+        
+    
+
+
+        
+        
+
 
 
