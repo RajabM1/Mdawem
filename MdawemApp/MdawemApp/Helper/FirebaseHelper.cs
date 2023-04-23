@@ -348,15 +348,14 @@ namespace MdawemApp.Helper
             try
             {
                 DateTime currentDate = DateTime.Now;
-                //string formattedDate = currentDate.ToString("yyyy/MM/dd");
-                //string formattedDateWithOutDay = currentDate.ToString("yyyy/MM");
-                //string attendanceKey = Preferences.Get("LeavesKey", "Awaiting");
+                string CurrentYear = currentDate.Year.ToString();
+
 
                 var LeavesSnapshot = await client
                      .Child("users")
                      .Child(userId)
                      .Child("Leaves")
-                     .Child("2023")
+                     .Child(CurrentYear)
                      .Child(LeaveID)
                      .OnceSingleAsync<Dictionary<string, object>>();
 
@@ -369,7 +368,7 @@ namespace MdawemApp.Helper
                         .Child("users")
                         .Child(userId)
                         .Child("Leaves")
-                        .Child("2023")
+                        .Child(CurrentYear)
                         .Child(LeaveID)
                         .PutAsync(attendanceData);
                 }

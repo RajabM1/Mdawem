@@ -150,5 +150,10 @@ namespace MdawemApp.Views
         {
             await Navigation.PushAsync(new ProfilePage());
         }
+
+        private async void LunchBreakOnClick(object sender, EventArgs e)
+        {
+            await DisplayAlert("Alert", "This Function is not available", "OK");
+        }
     }
 }

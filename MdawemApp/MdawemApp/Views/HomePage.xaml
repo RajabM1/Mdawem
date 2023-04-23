@@ -57,6 +57,9 @@
                 </StackLayout>
             </Frame>
             <Frame Grid.Row="1" Grid.Column="1" BorderColor="Gray">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="LunchBreakOnClick"/>
+                </Frame.GestureRecognizers>
                 <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                     <Image Source="Lunch.png" WidthRequest="30" Grid.Row="0" Grid.Column="1"  />
                     <Label Text="Lunch Breack"/>

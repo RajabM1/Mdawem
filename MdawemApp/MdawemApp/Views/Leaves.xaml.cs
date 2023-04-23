@@ -22,7 +22,6 @@ namespace MdawemApp.Views
             InitializeComponent();
             DateTime currentDate = DateTime.Now;
             string CurrentYear = currentDate.Year.ToString();
-            var UID = Application.Current.Properties["UID"].ToString();
             DisplayAttendance(CurrentYear, null);
         }
         public async void DisplayAttendance(string year, string type)
