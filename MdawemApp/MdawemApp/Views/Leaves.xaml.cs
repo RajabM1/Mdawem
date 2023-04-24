@@ -34,6 +34,7 @@ namespace MdawemApp.Views
             if(leave != null )
             {
                 LeavesListView.Children.Clear();
+                leave= leave.OrderByDescending(a=>a.Dateofrequest).ToList(); 
 
                 foreach (VactionRequestModel leaves in leave)
                 {

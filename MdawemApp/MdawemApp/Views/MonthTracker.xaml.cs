@@ -41,6 +41,8 @@ namespace MdawemApp.Views
 
             if (Attends != null)
             {
+                Attends = Attends.OrderByDescending(a => a.Date).ToList();
+
                 AttendanceStackLayout.Children.Clear();
 
                 foreach (Attendance location in Attends)

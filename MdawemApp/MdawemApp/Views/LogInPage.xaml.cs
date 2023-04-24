@@ -27,15 +27,18 @@ namespace MdawemApp.Views
 
             if (Application.Current.Properties.ContainsKey("emailtxt") && Application.Current.Properties.ContainsKey("passwordtxt"))
             {
+                activityIndicator.IsRunning = true;
+                activityIndicator.IsVisible = true;
+
                 string email = (string)Application.Current.Properties["emailtxt"];
                 string pass = (string)Application.Current.Properties["passwordtxt"];
                 string token = await firebaseHelper.Login(email, pass);
                 if (!string.IsNullOrEmpty(token))
                 {
-                    var tabbedPage = new TabbedPage1();
-                    tabbedPage.CurrentPage = tabbedPage.Children[0]; // Set the second page as the current page
-                    //MainPage = tabbedPage;
-                    await Navigation.PushAsync(tabbedPage);
+                    activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
+
+                    await Navigation.PushAsync(new HomePage());
                 }
             }
         }
@@ -44,7 +47,7 @@ namespace MdawemApp.Views
 
             try
             {
-
+                LogInButton.IsEnabled= false;
                 string email = emailtxt.Text;
                 string password = passwordtxt.Text;
                 bool rememberMe = RememberMeCheckBox.IsChecked;
@@ -62,6 +65,7 @@ namespace MdawemApp.Views
                 {
 
                     await DisplayAlert("Warning  ", "enter your email", "OK");
+                    LogInButton.IsEnabled = true;
                     return;
 
                 }
@@ -69,26 +73,35 @@ namespace MdawemApp.Views
                 {
 
                     await DisplayAlert("Warning  ", "enter your password", "OK");
+                    LogInButton.IsEnabled = true;
                     return;
 
                 }
+                activityIndicator.IsRunning = true;
+                activityIndicator.IsVisible = true;
 
                 string token = await firebaseHelper.Login(email, password);
                 if (!string.IsNullOrEmpty(token))
                 {
-                    var tabbedPage = new TabbedPage1();
-                    tabbedPage.CurrentPage = tabbedPage.Children[0]; // Set the second page as the current page
-                    //MainPage = tabbedPage;
-                    await Navigation.PushAsync(tabbedPage);
+                    activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
+                    await Navigation.PushAsync(new HomePage());
                 }
                 else
                 {
+                    activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
+
                     await DisplayAlert("Login ", "Login failled", "OK");
                 }
+                LogInButton.IsEnabled = true;
 
             }
             catch (Exception excption)
             {
+                activityIndicator.IsRunning = false;
+                activityIndicator.IsVisible = false;
+
                 if (excption.Message.Contains("EMAIL_NOT_FOUND"))
                 {
                     await DisplayAlert("Unauthorized  ", "Login failled email or password not found ", "OK");
@@ -103,6 +116,7 @@ namespace MdawemApp.Views
                 {
                     await DisplayAlert("Error ", excption.Message, "OK");
                 }
+                LogInButton.IsEnabled = true;
             }
 
         }

@@ -8,10 +8,11 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <StackLayout Margin="10">
-        <ScrollView>
-            <StackLayout  x:Name="NotificationsListView"  Spacing="3" />
-        </ScrollView>
-        </StackLayout>
+            <StackLayout Margin="10" x:Name="Notifications">
+                <ActivityIndicator x:Name="activityIndicator" IsRunning="False" IsVisible="False" />
+                <ScrollView>
+                    <StackLayout  x:Name="NotificationsListView"  Spacing="3" />
+                </ScrollView>
+            </StackLayout>
     </ContentPage.Content>
 </ContentPage>

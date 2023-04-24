@@ -19,10 +19,14 @@ namespace MdawemApp.Views
         public notificationPage()
         {
             InitializeComponent();
+            
             DisplayNotification();
+            
         }
         public async void DisplayNotification()
         {
+            activityIndicator.IsRunning = true;
+            activityIndicator.IsVisible = true;
             var Notification = await _userRepo.GetNotification();
 
 
@@ -131,6 +135,8 @@ namespace MdawemApp.Views
                     NotificationsListView.Children.Add(NotificationStackLayout);
                 }
             }
+            activityIndicator.IsRunning = false;
+            activityIndicator.IsVisible = false;
         }
 
         private void MoreClicked(object sender, EventArgs e)

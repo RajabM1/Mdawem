@@ -21,9 +21,15 @@ namespace MdawemApp.Views
         {
             InitializeComponent();
             firebaseHelper = new FirebaseHelper();
-            NavigationPage.SetHasNavigationBar(this, true);
+            //NavigationPage.SetHasBackButton(this, false);
+            //NavigationPage.SetHasNavigationBar(this, true);
             SetInformations();
             BindingContext = this;
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            NavigationPage.SetHasBackButton(this, false);
         }
 
         async void SetInformations()
@@ -155,5 +161,16 @@ namespace MdawemApp.Views
         {
             await DisplayAlert("Alert", "This Function is not available", "OK");
         }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new FlyoutPage1Flyout());
+        }
+
+        private async void ToolbarItem_Clicked_1(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new notificationPage()); 
+        }
+
     }
 }

@@ -86,6 +86,7 @@
                     Clicked="btnlogin_Clicked"
                     HeightRequest="60"
                     BackgroundColor="#FF5733"/>
+                    <ActivityIndicator x:Name="activityIndicator" IsRunning="False" IsVisible="False" />
                 </StackLayout>
             </Grid>
 
