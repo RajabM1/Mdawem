@@ -162,12 +162,7 @@ namespace MdawemApp.Views
             await DisplayAlert("Alert", "This Function is not available", "OK");
         }
 
-        private async void ToolbarItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new FlyoutPage1Flyout());
-        }
-
-        private async void ToolbarItem_Clicked_1(object sender, EventArgs e)
+        private async void Notification_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new notificationPage()); 
         }

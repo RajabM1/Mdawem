@@ -4,10 +4,9 @@
              x:Class="MdawemApp.Views.HomePage"
              Title="Mdawem"
              >
+    
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" IconImageSource="moreIcon.png" Priority="1" Clicked="ToolbarItem_Clicked" />
-        <ToolbarItem Order="Primary" IconImageSource="notification.png" Priority="0" Clicked="ToolbarItem_Clicked_1" />
-
+        <ToolbarItem Order="Primary" IconImageSource="notification.png" Priority="0" Clicked="Notification_Clicked" />
     </ContentPage.ToolbarItems>
     
     <StackLayout Margin="15,0,15,15">

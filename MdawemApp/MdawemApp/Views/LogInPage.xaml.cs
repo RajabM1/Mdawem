@@ -85,7 +85,9 @@ namespace MdawemApp.Views
                 {
                     activityIndicator.IsRunning = false;
                     activityIndicator.IsVisible = false;
-                    await Navigation.PushAsync(new HomePage());
+                    await Navigation.PushAsync(new FlyoutPage1());
+                    passwordtxt.Text = "";
+                    emailtxt.Text = "";
                 }
                 else
                 {

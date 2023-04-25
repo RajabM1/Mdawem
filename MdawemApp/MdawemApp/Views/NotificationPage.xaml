@@ -13,6 +13,6 @@
                 <ScrollView>
                     <StackLayout  x:Name="NotificationsListView"  Spacing="3" />
                 </ScrollView>
-            </StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

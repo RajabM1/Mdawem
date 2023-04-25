@@ -2,7 +2,9 @@
 using MdawemApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reactive;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -128,6 +130,7 @@ namespace MdawemApp.Views
                     var notificationTapGestureRecognizer = new TapGestureRecognizer();
                     notificationTapGestureRecognizer.Tapped += (s, e) =>
                     {
+                  
                         Navigation.PushAsync(new NotificationDetails(Notifications));
                     };
                     NotificationStackLayout.GestureRecognizers.Add(notificationTapGestureRecognizer);
@@ -138,7 +141,7 @@ namespace MdawemApp.Views
             activityIndicator.IsRunning = false;
             activityIndicator.IsVisible = false;
         }
-
+        
         private void MoreClicked(object sender, EventArgs e)
         {
            // DisplayAlert("ok", "hiiiii", "cancle");
