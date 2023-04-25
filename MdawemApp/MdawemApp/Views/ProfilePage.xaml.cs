@@ -3,8 +3,11 @@ using Firebase.Database.Query;
 using MdawemApp.Helper;
 using MdawemApp.Models;
 using MdawemApp.ViewModels;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
@@ -20,6 +23,7 @@ namespace MdawemApp.Views
     public partial class ProfilePage : ContentPage
     {
         FirebaseHelper FirebaseHelper;
+        MediaFile mediaFile;
         public ProfilePage()
         {
             InitializeComponent();
@@ -44,8 +48,17 @@ namespace MdawemApp.Views
 
         private async void Lougoutbtn(object sender, EventArgs e)
         {
-            FirebaseHelper.SignOut();
-            await Navigation.PushAsync(new LogInPage());
+            try
+            {
+                FirebaseHelper.SignOut();
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception here, for example:
+                Debug.WriteLine($"Error in Lougoutbtn: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Error", "An error occurred. Please try again later.", "OK");
+            }
         }
 
 
@@ -61,5 +74,20 @@ namespace MdawemApp.Views
             };
             await FirebaseHelper.UpdateEmployee(updatedEmployee);
         }
+      /* private async void TapGestureRecognizer_Tapped (object sender, EventArgs e)
+        {
+            await CrossMedia.Current.Initialize();
+            try
+            {
+                mediaFile = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                {
+                    PhotoSize = PhotoSize.Medium
+                });
+                if (mediaFile == null)
+                {
+                    return;
+                }
+            }catch (Exception ex) { }
+        }*/
     }
 }
