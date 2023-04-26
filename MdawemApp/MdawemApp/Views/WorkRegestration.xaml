@@ -5,29 +5,40 @@
              Title="Regestration">
     <ContentPage.Content>
         <StackLayout>
-            <Frame Padding="0">
-                <Entry Placeholder="ID Number "  />
-            </Frame>
-            <Frame Padding="0">
-                <Entry Placeholder="Job Title" />
-            </Frame>
-           
-            <Frame Padding="0" >
-                <Entry Placeholder="Work Location"/>
-            </Frame>
-           
-            <Frame Padding="0">
-                <Entry Placeholder="Full/Part Time"/>
-            </Frame>
-            <Label Text="Start Date" />
-            <Frame Padding="0">
-                <DatePicker FontSize="15" Margin="10,0" MinimumDate="01/01/2018" MaximumDate="12/31/2018" Date="06/21/2018" TextColor="Gray" />
-            </Frame>
+            <StackLayout Margin="15,15,15,15">
+                <Frame Padding="0">
+                    <Entry Placeholder="ID Number " FontSize="Micro" />
+                </Frame>
+                <Frame Padding="0">
+                    <Entry Placeholder="Job Title"  FontSize="Micro"/>
+                </Frame>
 
-            <Frame Padding="0">
-                <Entry Placeholder="Experience"/>
-            </Frame>
-            <Button Text="Regesration" Margin="10" ></Button>
+                <Frame Padding="0" >
+                    <Entry Placeholder="Work Location"  FontSize="Micro"/>
+                </Frame>
+                <Label Text="Start Date"  FontSize="Micro"/>
+                <Frame Padding="0">
+                    <DatePicker FontSize="15" Margin="10,0" MinimumDate="01/01/2018" MaximumDate="12/31/2018" Date="06/21/2018" TextColor="Gray" />
+                </Frame>
+
+                <Frame Padding="0">
+                    <Entry Placeholder="Experience" FontSize="Micro"/>
+                </Frame>
+            </StackLayout>
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton   Grid.Column="0"  Scale="0.9" FontSize="16" Content="Full Time" TextColor="Black"/>                <RadioButton Grid.Column="1" Scale="0.9" FontSize="16"  Content="Part Time" TextColor="Black"/>
+            </Grid>
+            <Button Text="Regesration" Margin="10" BackgroundColor="#FF5733" ></Button>
+
+
+
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>
