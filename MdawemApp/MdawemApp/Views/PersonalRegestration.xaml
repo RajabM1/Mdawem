@@ -4,26 +4,18 @@
              x:Class="MdawemApp.Views.PersonalRegestration"
              Title="Regestration">
     <ContentPage.Content>
-        <StackLayout>
-            <Grid Padding="0" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Frame Grid.Column="0" Padding="0">
-                    <Entry Placeholder="Fist Name" Text="{Binding FirstName}"/>
-                </Frame>
-                <Label Grid.Column="0" Grid.Row="1" Text="Invalid first name" TextColor="Red" IsVisible="{Binding FirstNameFlag}"></Label>
+        <StackLayout  Margin="15,15,15,15">
 
-                <Frame Grid.Column="1" Padding="0">
-                    <Entry Placeholder="Last Name" Text="{Binding LastName}"/>
-                </Frame>
-                <Label Grid.Column="1" Grid.Row="1" Text="Invalid last name" TextColor="Red" IsVisible="{Binding LastNameFlag}"></Label>
-            </Grid>
+            <Frame  Padding="0">
+                <Entry Placeholder="Fist Name" Text="{Binding FirstName}"/>
+            </Frame>
+            <Label Text="Invalid first name" TextColor="Red" IsVisible="{Binding FirstNameFlag}"></Label>
+
+            <Frame  Padding="0">
+                <Entry Placeholder="Last Name" Text="{Binding LastName}"/>
+            </Frame>
+            <Label Text="Invalid last name" TextColor="Red" IsVisible="{Binding LastNameFlag}"></Label>
+
             <StackLayout>
                 <Frame Padding="0">
                     <Entry Placeholder="Email" Text="{Binding EmailAddress}" />
