@@ -129,13 +129,14 @@ namespace MdawemApp.ViewModels
                 _employee.PhoneNumber = _phoneNumber;
                 var uid = await firebaseHelper.Register(_emailAddress, _password);
                 FirebaseClient client = new FirebaseClient(
-                "https://mdawemt-default-rtdb.firebaseio.com/"
-            );
-                await client.Child("users").
+                "https://mdawemn-default-rtdb.firebaseio.com/"
+            ); 
+
+                await client.
+                    Child("users").
                     Child(uid).
                     Child("PersonalInfo").
                     PostAsync(data);
-
                 await App.Current.MainPage.DisplayAlert("Success", "Saved Success", "Done");
             }
             else

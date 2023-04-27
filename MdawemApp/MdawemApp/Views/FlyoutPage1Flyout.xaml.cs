@@ -20,19 +20,35 @@ namespace MdawemApp.Views
         FirebaseHelper firebaseHelper;
 
         public ListView ListView;
-
         public FlyoutPage1Flyout()
         {
             InitializeComponent();
             firebaseHelper = new FirebaseHelper();
+            
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var UID = Application.Current.Properties["UID"].ToString();
+
+            if (true)
+            {
+                Supervisorlistview.IsVisible= true;
+                Employeelistview.IsVisible = false;
+            }
+            else
+            {
+                Employeelistview.IsVisible = true;
+                Supervisorlistview.IsVisible=false;
+            }
         }
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem is FlyoutItemPage item)
             {
                 await Navigation.PushAsync((Page)Activator.CreateInstance(item.TargetPage));
-                listview.SelectedItem = null;
-
+                Supervisorlistview.SelectedItem = null;
+                Employeelistview.SelectedItem = null;
             }
         }
 

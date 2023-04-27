@@ -18,14 +18,43 @@
         <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Silver" />
 
         <StackLayout Grid.Row="2">
-            <ListView x:Name="listview" x:FieldModifier="public" ItemSelected="OnItemSelected">
+            <ListView x:Name="Supervisorlistview" x:FieldModifier="public" ItemSelected="OnItemSelected" >
                 <ListView.ItemsSource>
                     <x:Array Type="{x:Type local:FlyoutItemPage}">
                         <local:FlyoutItemPage Title="Month Tracker" IconSource="calendar.png" TargetPage="{x:Type localViews:MonthTracker}"></local:FlyoutItemPage>
                         <local:FlyoutItemPage Title="Leave Tracker" IconSource="Leave.png" TargetPage="{x:Type localViews:Leaves}"></local:FlyoutItemPage>
                         <local:FlyoutItemPage Title="Change Password" IconSource="key.png" TargetPage="{x:Type localViews:ChangePassword}"></local:FlyoutItemPage>
-                        <local:FlyoutItemPage Title="Employee Tracker" IconSource="map.png" TargetPage="{x:Type localViews:Map}"></local:FlyoutItemPage>
-                        <local:FlyoutItemPage Title="Registration" IconSource="registration.png" TargetPage="{x:Type localViews:PersonalRegestration}"></local:FlyoutItemPage>
+                        <local:FlyoutItemPage Title="Employee Tracker" IconSource="map.png" TargetPage="{x:Type localViews:Map}" x:Name="EmployeeTracker"></local:FlyoutItemPage>
+                        <local:FlyoutItemPage Title="Registration" IconSource="registration.png" TargetPage="{x:Type localViews:PersonalRegestration}" x:Name="Registration"></local:FlyoutItemPage>
+                    </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="{Binding IconSource}" Margin="4"/>
+                                <Label Grid.Column="1" Text="{Binding Title}"
+                                       VerticalOptions="CenterAndExpand" Margin="15"/>
+                            </Grid>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="Employeelistview" x:FieldModifier="public" ItemSelected="OnItemSelected" IsVisible="{Binding UserRole}">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type local:FlyoutItemPage}">
+                        <local:FlyoutItemPage Title="Month Tracker" IconSource="calendar.png" TargetPage="{x:Type localViews:MonthTracker}"></local:FlyoutItemPage>
+                        <local:FlyoutItemPage Title="Leave Tracker" IconSource="Leave.png" TargetPage="{x:Type localViews:Leaves}"></local:FlyoutItemPage>
+                        <local:FlyoutItemPage Title="Change Password" IconSource="key.png" TargetPage="{x:Type localViews:ChangePassword}"></local:FlyoutItemPage>
+                        
                     </x:Array>
                 </ListView.ItemsSource>
                 <ListView.ItemTemplate>
@@ -51,5 +80,4 @@
             <Button  Text="LogOut" Background="red" Clicked="LogOut_Clicked" Margin="30"/>
         </StackLayout>
     </Grid>
-
 </ContentPage>

@@ -94,9 +94,10 @@ namespace MdawemApp.Views
                     };
                     Grid.SetRow(checkInLabel, 0);
                     Grid.SetColumn(checkInLabel, 0);
-
+                    
                     Label timeInLabel = new Label
                     {
+
                         Text = $"{TimeIn}"
                     };
                     Grid.SetRow(timeInLabel, 0);
@@ -109,19 +110,32 @@ namespace MdawemApp.Views
                     Grid.SetRow(checkOutLabel, 1);
                     Grid.SetColumn(checkOutLabel, 0);
 
-                    Label timeOutLabel = new Label
+                    if (TimeOut != "")
                     {
-                        Text = $"{TimeOut}"
-                    };
-                    Grid.SetRow(timeOutLabel, 1);
-                    Grid.SetColumn(timeOutLabel, 1);
+                        Label timeOutLabel = new Label
+                        {
+                            Text = $"{TimeOut}"
+                        };
+                        Grid.SetRow(timeOutLabel, 1);
+                        Grid.SetColumn(timeOutLabel, 1);
+                        grid.Children.Add(timeOutLabel);
 
+                    }
+                    else
+                    {
+                        Label timeOutLabel = new Label
+                        {
+                            Text = "Unfinished shift"
+                        };
+                        Grid.SetRow(timeOutLabel, 1);
+                        Grid.SetColumn(timeOutLabel, 1);
+                        grid.Children.Add(timeOutLabel);
 
+                    }
 
                     grid.Children.Add(checkInLabel);
                     grid.Children.Add(timeInLabel);
                     grid.Children.Add(checkOutLabel);
-                    grid.Children.Add(timeOutLabel);
 
                     frame.Content = grid;
 
@@ -135,7 +149,7 @@ namespace MdawemApp.Views
             {
                 AttendanceStackLayout.Children.Clear();
 
-                await DisplayAlert("error", "Wrong Path", "OK");
+                await DisplayAlert("error", "There isn't data yet.", "OK");
             }
         }
 
