@@ -458,6 +458,21 @@ namespace MdawemApp.Helper
             string employeeJson = JsonConvert.SerializeObject(updatedEmployee);
             await client.Child("Employee").PutAsync(employeeJson);
         }
+        public async Task<bool> VerifyPassword(string token, string currentPassword)
+        {
+            try
+            {
+                var authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
+                var user = await authProvider.GetUserAsync(token);
+                var userEmail = user.Email;
+                var signInResult = await authProvider.SignInWithEmailAndPasswordAsync(userEmail, currentPassword);
+                return signInResult != null && signInResult.FirebaseToken != null;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
 
