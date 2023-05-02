@@ -40,10 +40,16 @@ namespace MdawemApp.Views
         {
             try
             {
-                string password = passTxt.Text;
+                string currentPassword = currentPassTxt.Text;
+                string newPassword = passTxt.Text;
                 string confirmPass = confPassTxt.Text;
 
-                if (string.IsNullOrEmpty(password))
+                if (string.IsNullOrEmpty(currentPassword))
+                {
+                    await DisplayAlert("Change Password", "Please enter your current password", "OK");
+                    return;
+                }
+                if (string.IsNullOrEmpty(newPassword))
                 {
                     await DisplayAlert("Change Password", "Please enter the password", "OK");
                     return;
@@ -58,13 +64,20 @@ namespace MdawemApp.Views
                     await DisplayAlert("Change Password", "Please enter confirm password", "OK");
                     return;
                 }
-                if (password != confirmPass)
+                if (newPassword != confirmPass)
                 {
                     await DisplayAlert("Change Password", "Confirm password not match.", "OK");
                     return;
                 }
                 string token = Preferences.Get("token", String.Empty);
-                bool isChanged = await fireBase.ChangePassword(token, password);
+
+                bool isCurrentPasswordCorrect = await fireBase.VerifyPassword(token, currentPassword);
+                if (!isCurrentPasswordCorrect)
+                {
+                    await DisplayAlert("Change Password", "The current password is incorrect", "OK");
+                    return;
+                }
+                bool isChanged = await fireBase.ChangePassword(token, newPassword);
                 if (isChanged)
                 {
                     await DisplayAlert("Change Password", "Password has been changed.", "OK");
@@ -81,6 +94,18 @@ namespace MdawemApp.Views
             }
         }
 
-
+        private void confPassTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string newPassword = passTxt.Text;
+            string confirmPass = confPassTxt.Text;
+            if (newPassword != confirmPass)
+            {
+                confirmPassErrorMsg.IsVisible = true;
+            }
+            else
+            {
+                confirmPassErrorMsg.IsVisible = false;
+            }
+        }
     }
 }

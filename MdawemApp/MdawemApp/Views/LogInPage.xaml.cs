@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -127,6 +126,15 @@ namespace MdawemApp.Views
         private async void ForgetPassword(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ForgotPassword());
+        }
+
+        private bool isPasswordVisible;
+        private void OnEyeIconTapped(object sender, EventArgs e)
+        {
+            isPasswordVisible = !isPasswordVisible;
+            passwordtxt.IsPassword = !passwordtxt.IsPassword;
+            hideEyeImage.IsVisible = !isPasswordVisible;
+            openEyeImage.IsVisible = isPasswordVisible;
         }
     }
 

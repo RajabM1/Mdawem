@@ -4,92 +4,92 @@
              x:Class="MdawemApp.Views.LogInPage"
              >
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="20">
             <Grid 
               RowDefinitions="Auto,Auto,Auto,Auto">
                 <StackLayout Grid.Row="4">
                     <Image Source="Logo"
-                       HeightRequest="180"/>
-                    <Frame 
-                       BackgroundColor="#FF5733"
-                       Margin="15"
-                       Padding="0"
-                       >
-                        <Frame 
-                       BackgroundColor="White"
-                       Margin="3"
-                       Padding="25,0,25,0"
-                       HeightRequest="60"
-                       >
-                            <Entry TextColor="Black"
-                            FontSize="Default"
-                            Margin="0,-10,0,-10"
-                            Placeholder="Enter your Email"
-                            PlaceholderColor="Black"
-                                   x:Name="emailtxt"
-                                   WidthRequest="15"/>
-                        </Frame>
+                           HeightRequest="200"
+                           HorizontalOptions="Center"
+                           VerticalOptions="CenterAndExpand"
+                           />
+                    <Frame BackgroundColor="White"
+                           Margin="3"
+                           BorderColor="Gray"
+                           Padding="25,0,25,0"
+                           HeightRequest="60"
+                           >
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="mail.png" 
+                                   WidthRequest="20"
+                                   Margin="-10,0,0,0"/>
+                            <Entry Placeholder="Enter Email"
+                                   TextColor="Black"
+                                   FontSize="Default"
+                                   Keyboard="Email"
+                                   WidthRequest="250"
+                                   Margin="0,-0.01,0,-0.01"
+                                   x:Name="emailtxt"/>
+                        </StackLayout>
                     </Frame>
-                    <Frame 
-                       BackgroundColor="#FF5733"
-                       Margin="15"
-                       Padding="0"
-                       >
-                        <Frame 
-                        BackgroundColor="White"
-                       Margin="3"
-                       Padding="25,0,25,0"
-                       HeightRequest="60"
-                       >
+                    <Frame BackgroundColor="White"
+                           Margin="3"
+                           BorderColor="Gray"
+                           Padding="25,0,25,0"
+                           HeightRequest="60">
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="lock.png" 
+                                   WidthRequest="20"
+                                   Margin="-10,0,0,0"/>
                             <Entry TextColor="Black"
-                            FontSize="Default"
-                            Placeholder="Enter your Password"
-                            PlaceholderColor="Black"
-                            Margin="0,-10,0,-10"
-                            IsPassword="True"
-                                    x:Name="passwordtxt"/>
-                        </Frame>
+                                   FontSize="Default"
+                                   WidthRequest="250"
+                                   Placeholder="Enter Password"
+                                   IsPassword="True"
+                                   x:Name="passwordtxt"/>
+                            <Image x:Name="hideEyeImage" Source="hideEye.png" WidthRequest="25" Margin="8,0,0,0">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEyeIconTapped" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Image x:Name="openEyeImage" Source="Eye.png" WidthRequest="25" Margin="8,0,0,0" IsVisible="False">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEyeIconTapped" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </StackLayout>
                     </Frame>
                     <RelativeLayout Padding="10">
-                        <CheckBox 
-                        Color="#FF5733"
-                        IsChecked="False"
-                        
-                        x:Name="RememberMeCheckBox"
-                        Margin="15,0,0,0"/>
-                        <Label
-                        Text="Remember Me"
-                        TextColor="Black"
-                        FontSize="Default"
-                        RelativeLayout.XConstraint="45"
-                        RelativeLayout.YConstraint="5"/>
-
-                        <Button
-                        x:Name="ForgetPasswordButton"
-                        Text="Forget Password?"
-                        TextColor="Black"
-                        FontSize="Default"
-                        BackgroundColor="Transparent"
-                        RelativeLayout.XConstraint="175"
-                        RelativeLayout.YConstraint="-8"
-                        Clicked="ForgetPassword"
-                        TextTransform="None"/>
+                        <CheckBox Color="#FF5733"
+                                  IsChecked="False"
+                                  x:Name="RememberMeCheckBox"/>
+                        <Label Text="Remember Me"
+                               TextColor="Black"
+                               FontSize="Default"
+                               RelativeLayout.XConstraint="30"
+                               RelativeLayout.YConstraint="4"/>
+                        <Button x:Name="ForgetPasswordButton"
+                                Text="Forget Password?"
+                                TextColor="Black"
+                                FontSize="Default"
+                                BackgroundColor="Transparent"
+                                RelativeLayout.XConstraint="205"
+                                RelativeLayout.YConstraint="-8"
+                                Clicked="ForgetPassword"
+                                TextTransform="None"/>
                     </RelativeLayout>
-                    <Button
-                    x:Name="LogInButton"
-                    Text="Log In"
-                    TextColor="White"   
-                    FontSize="Medium"
-                    BorderWidth="1"
-                    BorderColor="Black"
-                    Margin="10,0,10,0"
-                    Clicked="btnlogin_Clicked"
-                    HeightRequest="60"
-                    BackgroundColor="#FF5733"/>
+                    <Button x:Name="LogInButton"
+                            Text="LogIn"
+                            TextColor="White"   
+                            FontSize="Medium"
+                            BorderWidth="0.1"
+                            BorderColor="Black"
+                            Margin="10,30,10,0"
+                            Clicked="btnlogin_Clicked"
+                            HeightRequest="60"/>
                     <ActivityIndicator x:Name="activityIndicator" IsRunning="False" IsVisible="False" />
                 </StackLayout>
             </Grid>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
