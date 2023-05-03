@@ -3,6 +3,7 @@ using MdawemApp.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -44,13 +45,13 @@ namespace MdawemApp.Views
         }
         private async void btnlogin_Clicked(object sender, EventArgs e)
         {
-
             try
             {
-                LogInButton.IsEnabled= false;
-                string email = emailtxt.Text;
+                LogInButton.IsEnabled = false;
+                string email = emailtxt.Text.Trim(); // remove any extra spacing from email
                 string password = passwordtxt.Text;
                 bool rememberMe = RememberMeCheckBox.IsChecked;
+
                 if (rememberMe)
                 {
                     Application.Current.Properties["emailtxt"] = email;
@@ -61,26 +62,26 @@ namespace MdawemApp.Views
                     Application.Current.Properties.Remove("emailtxt");
                     Application.Current.Properties.Remove("passwordtxt");
                 }
+
                 if (string.IsNullOrEmpty(email))
                 {
-
-                    await DisplayAlert("Warning  ", "enter your email", "OK");
+                    await DisplayAlert("Warning", "Please enter your email.", "OK");
                     LogInButton.IsEnabled = true;
                     return;
-
                 }
+
                 if (string.IsNullOrEmpty(password))
                 {
-
-                    await DisplayAlert("Warning  ", "enter your password", "OK");
+                    await DisplayAlert("Warning", "Please enter your password.", "OK");
                     LogInButton.IsEnabled = true;
                     return;
-
                 }
+
                 activityIndicator.IsRunning = true;
                 activityIndicator.IsVisible = true;
 
                 string token = await firebaseHelper.Login(email, password);
+
                 if (!string.IsNullOrEmpty(token))
                 {
                     activityIndicator.IsRunning = false;
@@ -93,34 +94,37 @@ namespace MdawemApp.Views
                 {
                     activityIndicator.IsRunning = false;
                     activityIndicator.IsVisible = false;
-
-                    await DisplayAlert("Login ", "Login failled", "OK");
+                    await DisplayAlert("Login Failed", "Invalid email and password. Please try again.", "OK");
                 }
-                LogInButton.IsEnabled = true;
 
+                LogInButton.IsEnabled = true;
             }
-            catch (Exception excption)
+            catch (HttpRequestException)
+            {
+                await DisplayAlert("Error", "An error occurred while logging in. Please check your internet connection and try again.", "OK");
+                LogInButton.IsEnabled = true;
+            }
+            catch (Exception exception)
             {
                 activityIndicator.IsRunning = false;
                 activityIndicator.IsVisible = false;
 
-                if (excption.Message.Contains("EMAIL_NOT_FOUND"))
+                if (exception.Message.Contains("EMAIL_NOT_FOUND"))
                 {
-                    await DisplayAlert("Unauthorized  ", "Login failled email or password not found ", "OK");
-
+                    await DisplayAlert("Unauthorized", "Login failed. Email or password not found.", "OK");
                 }
-                else if (excption.Message.Contains("INVALID_PASSWORD"))
+                else if (exception.Message.Contains("INVALID_PASSWORD"))
                 {
-                    await DisplayAlert("Unauthorized  ", "Login failled email or password is not found ", "OK");
-
+                    await DisplayAlert("Unauthorized", "Login failed. Email or password is incorrect.", "OK");
                 }
+
                 else
                 {
-                    await DisplayAlert("Error ", excption.Message, "OK");
+                    await DisplayAlert("Error", exception.Message, "OK");
                 }
+
                 LogInButton.IsEnabled = true;
             }
-
         }
 
         private async void ForgetPassword(object sender, EventArgs e)
