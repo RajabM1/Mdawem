@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,16 +33,25 @@ namespace MdawemApp.Helper
 
         public async Task<string> Login(string email, string password)
         {
-            var token = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
-            if (!string.IsNullOrEmpty(token.FirebaseToken))
+            try
             {
-                Application.Current.Properties["UID"] = token.User.LocalId;
-                Preferences.Set("token", token.FirebaseToken);
-                return token.FirebaseToken;
+                var token = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
+                if (!string.IsNullOrEmpty(token.FirebaseToken))
+                {
+                    Application.Current.Properties["UID"] = token.User.LocalId;
+                    Preferences.Set("token", token.FirebaseToken);
+                    return token.FirebaseToken;
+                }
+                {
+                    return "";
+                }
             }
+            
+            catch (Exception ex)
             {
                 return "";
             }
+
         }
 
         public void SignOut()
@@ -152,14 +162,15 @@ namespace MdawemApp.Helper
             }
             catch (Exception ex)
             {
-
+                if (ex.Message.Contains("EMAIL_NOT_FOUND"))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Unauthorized", "Please check you E-Mail", "OK");
+                    return false;
+                }
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
 
                 return false;
             }
-
-
-                return false;
         }
 
 
@@ -419,7 +430,7 @@ namespace MdawemApp.Helper
                 return false;
             }
         }
-        public async Task<List<Employee>> GetInfo()
+       /* public async Task<List<Employee>> GetInfo()
         {
             var dataSnapshot = await client.Child("Employee").OnceAsync<object>();
             if (!dataSnapshot.Any())
@@ -441,16 +452,14 @@ namespace MdawemApp.Helper
 
                     FirstName = Infos.FirstName,
                     Email = Infos.Email,
-                    HomeAddress = Infos.HomeAddress,
                     PhoneNumber = Infos.PhoneNumber,
-                    DateOfBirth = Infos.DateOfBirth,
 
                 };
                 Info.Add(InfoViewModel);
 
             }
             return Info;
-        }
+        }*/
         public async Task UpdateEmployee(Employee updatedEmployee)
         {
 

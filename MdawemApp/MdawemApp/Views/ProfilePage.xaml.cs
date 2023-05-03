@@ -24,12 +24,12 @@ namespace MdawemApp.Views
         {
             InitializeComponent();
             FirebaseHelper = new FirebaseHelper();
-            display();
+            //display();
             // var employee = firebaseHelper.GetAll();
             // BindingContext = new ProfileViewModel { Employees = employee };
         }
 
-        public async void display()
+        /*public async void display()
         {
             var info = await FirebaseHelper.GetInfo();
             foreach (Employee item in info)
@@ -40,7 +40,7 @@ namespace MdawemApp.Views
                 phone.Text = item.PhoneNumber;
                 birthday.Text = item.DateOfBirth.ToString();
             }
-        }
+        }*/
 
         private async void Lougoutbtn(object sender, EventArgs e)
         {
@@ -56,8 +56,8 @@ namespace MdawemApp.Views
                 FirstName = FirstName.Text,
                 Email = Email.Text,
                 PhoneNumber = phone.Text,
-                HomeAddress = address.Text,
-                DateOfBirth = DateTime.Now,
+               /* HomeAddress = address.Text,
+                DateOfBirth = DateTime.Now,*/
             };
             await FirebaseHelper.UpdateEmployee(updatedEmployee);
         }

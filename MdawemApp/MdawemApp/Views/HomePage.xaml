@@ -4,20 +4,22 @@
              x:Class="MdawemApp.Views.HomePage"
              Title="Mdawem"
              >
-    
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" IconImageSource="notification.png" Priority="0" Clicked="Notification_Clicked" />
+        <ToolbarItem x:Name="NotificationTool" Order="Primary" IconImageSource="notification.png" Priority="0" Clicked="Notification_Clicked"  />
     </ContentPage.ToolbarItems>
-    
+
     <StackLayout Margin="15,0,15,15">
 
         <Label x:Name="Name" FontSize="Title" FontAttributes="Bold"/>
         <Grid Margin="10">
             <Label x:Name="TodayDate" FontSize="Subtitle" TextColor="Gray"  Grid.Row="0" Grid.Column="0" />
             <Image Source="Profile.png" WidthRequest="23" Grid.Row="0" Grid.Column="1" HorizontalOptions="End">
+                <!--
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnProfileIconClick" />
                 </Image.GestureRecognizers>
+                -->
             </Image>
         </Grid>
 
@@ -33,33 +35,29 @@
 
             <Frame Grid.Row="0" Grid.Column="0" BorderColor="Gray" >
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CheckInOnClicked" />
+                    <TapGestureRecognizer Tapped="CheckIn_Clicked" />
                 </Frame.GestureRecognizers>
                 <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                     <Image Source="CheckIn.png" WidthRequest="30" Grid.Row="0" Grid.Column="1"  />
                     <Label Text="Check In " FontSize="Body" />
-                    <Label x:Name="checkIn" IsVisible="false" FontSize="Subtitle" TextColor="Gray" />
                 </StackLayout>
             </Frame>
             <Frame Grid.Row="0" Grid.Column="1" BorderColor="Gray" >
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CheckOutOnClicked" />
+                    <TapGestureRecognizer Tapped="CheckOut_Clicked" />
                 </Frame.GestureRecognizers>
                 <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                     <Image Source="CheckOut.png" WidthRequest="30" Grid.Row="0" Grid.Column="1"  />
                     <Label Text="Check Out "/>
-                    <Label x:Name="checkOut" IsVisible="false" FontSize="Subtitle" TextColor="Gray"/>
                 </StackLayout>
             </Frame>
             <Frame Grid.Row="1" Grid.Column="0" BorderColor="Gray">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="RequestOnClicked" />
                 </Frame.GestureRecognizers>
-                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="0,18,0,18"> 
                     <Image Source="Vacation.png" WidthRequest="30" Grid.Row="0" Grid.Column="1"  />
-                    <Label Text="Request Vacation " Margin="-10,0"/>
-                    <Label Text="for Days" FontSize="Subtitle" TextColor="Gray" Margin="18,0,0,0"/>
-
+                    <Label Text="Request Vacation "  />
                 </StackLayout>
             </Frame>
             <Frame Grid.Row="1" Grid.Column="1" BorderColor="Gray">
@@ -72,32 +70,36 @@
                 </StackLayout>
             </Frame>
         </Grid>
-        <Grid>
+        <Grid Margin="0,20,0,0">
             <Label Text="Recent Activity" Grid.Row="0" Grid.Column="0" FontSize="Subtitle" />
-            <Label Text="See More" Grid.Row="0" Grid.Column="1" FontSize="Subtitle" TextColor="#ff5733" HorizontalOptions="End"/>
+            <Label Text="See More" Grid.Row="0" Grid.Column="1" FontSize="Subtitle" TextColor="#ff5733" HorizontalOptions="End">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SeeMore_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
         </Grid>
         <Grid>
             <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                 <Image Source="CheckIn.png" WidthRequest="25" HorizontalOptions="Start" />
                 <Label Text="Check In " Margin="0,14,0,0" />
             </StackLayout>
-            <Label Text="18 April 2023" Margin="0,32,0,0" TextColor="LightGray"  FontSize="Caption" />
-            <Label Text="8:00 AM"  TextColor="Black"  Grid.Column="0" Grid.Row="0"  HorizontalOptions="End" Margin="0,14,0,0" />
+            <Label Text=" " Margin="0,32,0,0" TextColor="LightGray"  FontSize="Caption" x:Name="TimeInDate"/>
+            <Label Text=" "  TextColor="Black"  Grid.Column="0" Grid.Row="0"  HorizontalOptions="End" Margin="0,14,0,0" x:Name="TimeIn"/>
 
             <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
                 <Image Source="CheckOut.png" WidthRequest="27" HorizontalOptions="Start" />
                 <Label Text="Check Out" Margin="0,14,0,0" />
             </StackLayout>
-            <Label Text="18 April 2023" Grid.Column="0" Grid.Row="1" TextColor="LightGray"  Margin="0,32,-1,0"  FontSize="Caption" />
-            <Label Text="4:00 PM"  TextColor="Black"   Grid.Column="0" Grid.Row="1" HorizontalOptions="End" Margin="0,14,0,0" />
+            <Label Text=" " Grid.Column="0" Grid.Row="1" TextColor="LightGray"  Margin="0,32,-1,0"  FontSize="Caption" x:Name="TimeOutDate"/>
+            <Label Text=" "  TextColor="Black"   Grid.Column="0" Grid.Row="1" HorizontalOptions="End" Margin="0,14,0,0" x:Name="TimeOut"/>
 
 
             <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
                 <Image Source="Vacation.png" WidthRequest="23" HorizontalOptions="Start" />
                 <Label Text="Request Vacation" Margin="0,14,0,0" />
             </StackLayout>
-            <Label Text="18 April 2023" Grid.Column="0" Grid.Row="2" TextColor="LightGray"  Margin="0,35,0,0"  FontSize="Caption" />
-            <Label Text="2:30 PM"  TextColor="Black"   Grid.Column="0" Grid.Row="2" HorizontalOptions="End" Margin="0,14,0,0" />
+            <Label Text=" " Grid.Column="0" Grid.Row="2" TextColor="LightGray"  Margin="0,35,0,0"  FontSize="Caption" x:Name="Dateofrequest"/>
+            <Label Text=" "  TextColor="Black"   Grid.Column="0" Grid.Row="2" HorizontalOptions="End" Margin="0,14,0,0" x:Name="Status"/>
 
             <StackLayout Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
                 <Image Source="Lunch.png" WidthRequest="23" HorizontalOptions="Start" />

@@ -64,7 +64,8 @@
                                TextColor="Black"
                                FontSize="Default"
                                RelativeLayout.XConstraint="30"
-                               RelativeLayout.YConstraint="4"/>
+                               RelativeLayout.YConstraint="4"
+                               Padding="0,4"/>
                         <Button x:Name="ForgetPasswordButton"
                                 Text="Forget Password?"
                                 TextColor="Black"
@@ -73,7 +74,8 @@
                                 RelativeLayout.XConstraint="205"
                                 RelativeLayout.YConstraint="-8"
                                 Clicked="ForgetPassword"
-                                TextTransform="None"/>
+                                TextTransform="None"
+                                Padding="30,0"/>
                     </RelativeLayout>
                     <Button x:Name="LogInButton"
                             Text="LogIn"

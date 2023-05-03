@@ -21,7 +21,6 @@ namespace MdawemApp.Views
             InitializeComponent();
             validate = new Validation();
             fireBase = new FirebaseHelper();
-
         }
 
         private void passTxt_TextChanged(object sender, TextChangedEventArgs e)
@@ -44,26 +43,18 @@ namespace MdawemApp.Views
                 string newPassword = passTxt.Text;
                 string confirmPass = confPassTxt.Text;
 
-                if (string.IsNullOrEmpty(currentPassword))
+                if (string.IsNullOrEmpty(currentPassword)|| string.IsNullOrEmpty(newPassword)|| string.IsNullOrEmpty(confirmPass))
                 {
-                    await DisplayAlert("Change Password", "Please enter your current password", "OK");
+                    await DisplayAlert("Change Password", "Please fill all input", "OK");
                     return;
                 }
-                if (string.IsNullOrEmpty(newPassword))
-                {
-                    await DisplayAlert("Change Password", "Please enter the password", "OK");
-                    return;
-                }
+               
                 if (passErrorMsg.Text == "Invalid Password")
                 {
                     await DisplayAlert("Change Password", "Please enter a valid password", "OK");
                     return;
                 }
-                if (string.IsNullOrEmpty(confirmPass))
-                {
-                    await DisplayAlert("Change Password", "Please enter confirm password", "OK");
-                    return;
-                }
+                
                 if (newPassword != confirmPass)
                 {
                     await DisplayAlert("Change Password", "Confirm password not match.", "OK");
@@ -98,14 +89,21 @@ namespace MdawemApp.Views
         {
             string newPassword = passTxt.Text;
             string confirmPass = confPassTxt.Text;
-            if (newPassword != confirmPass)
+            if (newPassword != confirmPass && validate.IsValidPassword(passTxt.Text)) 
             {
                 confirmPassErrorMsg.Text = "Password does not match";
+            }
+            else if(newPassword != confirmPass && !validate.IsValidPassword(passTxt.Text))
+            {
+                confirmPassErrorMsg.Text = "Invalid Password";
+
             }
             else
             {
                 confirmPassErrorMsg.Text = "          ";
             }
+
+            
         }
     }
 }

@@ -34,6 +34,7 @@ namespace MdawemApp.Views
             CultureInfo culture = new CultureInfo("en-US");
             string formattedDate = now.ToString("yyyy/MM/dd", culture);
             var location = await _userRepo.GetEmployeesLocations(formattedDate.Split('/')[0], formattedDate.Split('/')[1]);
+            
             if (location.Count == 0)
             {
                 await DisplayAlert("No check-in", "No check-in for today.", "cancle");
@@ -44,6 +45,7 @@ namespace MdawemApp.Views
 
                 foreach (var loc in location)
                 {
+                    
                     var pin = new Pin
                     {
                         Position = new Position(double.Parse(loc.Latitude), double.Parse(loc.Longitude)),

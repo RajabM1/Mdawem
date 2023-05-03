@@ -24,14 +24,14 @@ namespace MdawemApp.Views
         {
             InitializeComponent();
             firebaseHelper = new FirebaseHelper();
-            
         }
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             var UID = Application.Current.Properties["UID"].ToString();
-
-            if (true)
+            var infos = await firebaseHelper.GetUserInformation();
+            
+            if (infos.EmploymentStatus)
             {
                 Supervisorlistview.IsVisible= true;
                 Employeelistview.IsVisible = false;

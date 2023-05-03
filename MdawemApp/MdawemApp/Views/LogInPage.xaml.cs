@@ -51,15 +51,14 @@ namespace MdawemApp.Views
                 string email = emailtxt.Text.Trim(); // remove any extra spacing from email
                 string password = passwordtxt.Text;
                 bool rememberMe = RememberMeCheckBox.IsChecked;
+                Application.Current.Properties["emailtxt"] = email;
 
                 if (rememberMe)
                 {
-                    Application.Current.Properties["emailtxt"] = email;
                     Application.Current.Properties["passwordtxt"] = password;
                 }
                 else
                 {
-                    Application.Current.Properties.Remove("emailtxt");
                     Application.Current.Properties.Remove("passwordtxt");
                 }
 

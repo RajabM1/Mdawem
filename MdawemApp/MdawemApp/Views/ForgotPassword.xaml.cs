@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MdawemApp.Helper;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MdawemApp.Views
 {
@@ -27,21 +28,22 @@ namespace MdawemApp.Views
         {
             if (!validate.IsValidEmail(emailEntry.Text))
             {
-                emailErrorMessage.IsVisible = true;
+                emailErrorMessage.Text= "Invalid Email";
             }
             else
             {
-                emailErrorMessage.IsVisible = false;
+                emailErrorMessage.Text = " ";
             }
         }
 
         private async void Button_Clicked(object sender, System.EventArgs e)
         {
-            if (string.IsNullOrEmpty(emailEntry.Text) && emailErrorMessage.IsVisible == false)
+
+            if (string.IsNullOrEmpty(emailEntry.Text) && emailErrorMessage.Text == " ")
             {
                 await App.Current.MainPage.DisplayAlert("Alert", "Enter your email", "OK");
             }
-            else if (emailErrorMessage.IsVisible)
+            else if (emailErrorMessage.Text == "Invalid Email")
             {
                 await App.Current.MainPage.DisplayAlert("Alert", "Invalid email", "OK");
             }
@@ -50,12 +52,11 @@ namespace MdawemApp.Views
                 bool isSuccessful = await fireBase.ResetPassword(emailEntry.Text);
                 if (isSuccessful)
                 {
+                    await App.Current.MainPage.DisplayAlert("Alert", "Please Check your E-Mail to update your password", "OK");
+
                     await Navigation.PopAsync();
                 }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Alert", "Invalid email", "OK");
-                }
+               
             }
         }
 

@@ -12,7 +12,7 @@ namespace MdawemApp
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new LogInPage());
+            MainPage = new NavigationPage(new SplashScreen());
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 

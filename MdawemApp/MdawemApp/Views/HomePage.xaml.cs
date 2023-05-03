@@ -1,7 +1,10 @@
 using MdawemApp.Helper;
+using MdawemApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -14,31 +17,79 @@ namespace MdawemApp.Views
     public partial class HomePage : ContentPage
     {
         bool isCheckInTrue = false;
-        bool isCheckInToggled = false;
-        bool isCheckOutToggled = false;
         FirebaseHelper firebaseHelper;
+        List<Attendance> Attends = new List<Attendance>();
+        List<VactionRequestModel> leave = new List<VactionRequestModel>();
+
         public HomePage()
         {
             InitializeComponent();
             firebaseHelper = new FirebaseHelper();
-            //NavigationPage.SetHasBackButton(this, false);
-            //NavigationPage.SetHasNavigationBar(this, true);
             SetInformations();
             BindingContext = this;
         }
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             NavigationPage.SetHasBackButton(this, false);
+            var UID = Application.Current.Properties["UID"].ToString();
+            var infos = await firebaseHelper.GetUserInformation();
+            if (!infos.EmploymentStatus)
+            {
+                this.ToolbarItems.Remove(NotificationTool);
+            }
         }
 
         async void SetInformations()
         {
+            DateTime dateTime = DateTime.Now;
+            string date = dateTime.ToString("dd MMMM yyyy");
+            TodayDate.Text = date;
+           
+            var UID = Application.Current.Properties["UID"].ToString();
+            string CurrentYear = dateTime.Year.ToString();
+            string monthString = dateTime.Month.ToString("D2");
+
             var infos = await firebaseHelper.GetUserInformation();
             string name = $"{infos.FirstName}, {infos.LastName}";
             Name.Text = name;
-            DateTime dateTime = DateTime.Now;
-            TodayDate.Text = dateTime.ToString("dd MMMM yyyy");
+
+            Attends = await firebaseHelper.GetAttendance(UID, CurrentYear, monthString);
+            if (Attends == null || Attends.Count == 0)
+            {
+                TimeInDate.Text = date;
+                TimeOutDate.Text = date;
+                TimeIn.Text = "Unshifted yet";
+                TimeOut.Text = "Unshifted yet";
+            }
+            else
+            {
+                var lastAttendance = Attends.LastOrDefault();
+                TimeInDate.Text = lastAttendance.Date;
+                TimeOutDate.Text = lastAttendance.Date;
+                TimeIn.Text = lastAttendance.TimeIn;
+                if (lastAttendance.TimeOut != "")
+                {
+                    TimeOut.Text = lastAttendance.TimeOut;
+                }
+                else
+                {
+                    TimeOut.Text = "Unfinished shift";
+                }
+            }
+            var leave = await firebaseHelper.GetLeaves(UID, CurrentYear, null);
+            if (leave == null|| leave.Count==0)
+            {
+                Dateofrequest.Text = date;
+                Status.Text = "There isn't any leave";
+            }
+            else
+            {
+                var lastLeave = leave.LastOrDefault();
+                Dateofrequest.Text= lastLeave.Dateofrequest;
+                Status.Text = lastLeave.Status;
+            }
+
         }
 
         private async void CheckIn_Clicked(object sender, EventArgs e)
@@ -111,61 +162,32 @@ namespace MdawemApp.Views
             }
 		}
 
-        private void CheckInOnClicked(object sender, EventArgs e)
-        {
-            if (!isCheckInToggled)
-            {
-                DateTime now = DateTime.Now;
-                string formattedTime = now.ToString("h:mm");
-                checkIn.Text = formattedTime;
-                checkIn.IsVisible = true;
-                CheckIn_Clicked(sender, e);
-            }
-            else
-            {
-                checkIn.Text = "";
-                checkIn.IsVisible = false;
-            }
-            isCheckInToggled = !isCheckInToggled;
-        }
-
-        private void CheckOutOnClicked(object sender, EventArgs e)
-        {
-            if (!isCheckOutToggled)
-            {
-                DateTime now = DateTime.Now;
-                string formattedTime = now.ToString("h:mm");
-                checkOut.Text = formattedTime;
-                checkOut.IsVisible = true;
-                CheckOut_Clicked(sender, e);
-            }
-            else
-            {
-                checkOut.Text = "";
-                checkOut.IsVisible = false;
-            }
-            isCheckOutToggled = !isCheckOutToggled;
-        }
-
+       
         private async void RequestOnClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RequestForVacation());
         }
 
-        private async void OnProfileIconClick(object sender, EventArgs e)
+        /*private async void OnProfileIconClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ProfilePage());
-        }
+        }*/
 
         private async void LunchBreakOnClick(object sender, EventArgs e)
         {
-            await DisplayAlert("Alert", "This Function is not available", "OK");
+            await DisplayAlert("Alert", "This features is not available", "OK");
         }
 
         private async void Notification_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new notificationPage()); 
         }
+
+        private async void SeeMore_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MonthTracker());
+        }
+
 
     }
 }

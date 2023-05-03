@@ -3,6 +3,7 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using MdawemApp.Helper;
 using MdawemApp.Models;
+using MdawemApp.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -107,6 +108,16 @@ namespace MdawemApp.ViewModels
             }
         }
 
+        private bool _employmentStatus;
+        public bool EmploymentStatus
+        {
+            get { return _employmentStatus; }
+            set
+            {
+                _employmentStatus = value;
+            }
+        }
+
         public PersonalRegistrationViewModels()
         {
             _employee = new Employee();
@@ -124,20 +135,32 @@ namespace MdawemApp.ViewModels
         {
             if (IsAllInputValid)
             {
-                _employee.FirstName = _firstName;
-                _employee.LastName = _lastName;
-                _employee.PhoneNumber = _phoneNumber;
-                var uid = await firebaseHelper.Register(_emailAddress, _password);
-                FirebaseClient client = new FirebaseClient(
-                "https://mdawemn-default-rtdb.firebaseio.com/"
-            ); 
+                try
+                {
+                    _employee.FirstName = _firstName;
+                    _employee.LastName = _lastName;
+                    _employee.PhoneNumber = _phoneNumber;
+                    _employee.EmploymentStatus = _employmentStatus;
+                    var uid = await firebaseHelper.Register(_emailAddress, _password);
+                    FirebaseClient client = new FirebaseClient(
+                    "https://mdawemn-default-rtdb.firebaseio.com/");
 
-                await client.
-                    Child("users").
-                    Child(uid).
-                    Child("PersonalInfo").
-                    PostAsync(data);
-                await App.Current.MainPage.DisplayAlert("Success", "Saved Success", "Done");
+                    await client.
+                        Child("users").
+                        Child(uid).
+                        Child("PersonalInfo").
+                        PostAsync(data);
+                    await App.Current.MainPage.DisplayAlert("Success", "Saved Success", "Done");
+                    await App.Current.MainPage.Navigation.PushAsync(new FlyoutPage1());
+
+
+                }
+                catch (Exception ex)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+
+                }
+
             }
             else
             {
