@@ -55,7 +55,8 @@ namespace MdawemApp.Views
         private async void LogOut_Clicked(object sender, EventArgs e)
         {
            firebaseHelper.SignOut();
-            await Application.Current.MainPage.Navigation.PopToRootAsync();
+           await Application.Current.MainPage.Navigation.PushAsync(new LogInPage());
+
         }
     }
 
