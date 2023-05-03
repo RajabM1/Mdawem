@@ -49,13 +49,19 @@ namespace MdawemApp.Views
             }
         }
 
-        private void MyCalendar_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void MyCalendar_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(MyCalendar.SelectedDate))
             {
                 if (MyCalendar.SelectedDate != null && MyCalendar.SelectedDate.ToString() != "")
                 {
                     startDate.Text = MyCalendar.SelectedDate.ToString("ddd, dd MMM yyyy");
+                    string errorMessage = ValidateInput("startDate");
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        await DisplayAlert("Validation Error", errorMessage, "OK");
+                        return;
+                    }
                 }
             }
         }
@@ -86,11 +92,8 @@ namespace MdawemApp.Views
                 {
 
                     endDate.Text = MyCalendarEnd.SelectedDate.ToString("ddd, dd MMM yyyy");
-                    string leaveType = GetSelectedLeaveType();
-                    string startDateTime = startDate.Text;
-                    string endDateTime = endDate.Text;
-                    string reason = causeEntry.Text;
-                    string errorMessage = ValidateInput(leaveType, startDateTime, endDateTime, reason);
+                   
+                    string errorMessage = ValidateInput("endDate");
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         await DisplayAlert("Validation Error", errorMessage, "OK");
@@ -109,7 +112,7 @@ namespace MdawemApp.Views
                 string startDateTime = startDate.Text;
                 string endDateTime = endDate.Text;
                 string reason = causeEntry.Text;
-                string errorMessage = ValidateInput(leaveType, startDateTime, endDateTime, reason);
+                string errorMessage = ValidateInput(null);
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
                     await DisplayAlert("Validation Error", errorMessage, "OK");
@@ -149,30 +152,36 @@ namespace MdawemApp.Views
             return string.Empty;
         }
 
-        private string ValidateInput(string leaveType, string startDate, string endDate, string reason)
+        private string ValidateInput(string conditionToCheck)
         {
-            if (string.IsNullOrEmpty(leaveType))
+            string leaveType = GetSelectedLeaveType();
+            string StartDate = startDate.Text;
+            string EndDate = endDate.Text;
+            string reason = causeEntry.Text;
+            switch (conditionToCheck)
             {
-                return "Please select a leave type.";
-            }
-            if (DateTime.Parse(startDate) < DateTime.Today)
-            {
-                return "Start date cannot be in the past.";
-            }
-            if (DateTime.Parse(endDate) <= DateTime.Parse(startDate))
-            {
-                return "End date cannot be before start date.";
-            }
-            int daysRequested = (DateTime.Parse(endDate) - DateTime.Parse(startDate)).Days;
-            if (daysRequested > MaxDaysAllowed)
-            {
-                return $"You are only allowed to request up to {MaxDaysAllowed} days of vacation";
-            }
-            string buttonTitle = $"Apply to  ({daysRequested} days Leave)";
-            btntext.Text = buttonTitle;
-            if (string.IsNullOrEmpty(reason))
-            {
-                return "Please enter a reason for the vacation.";
+                case "startDate":
+                    if (DateTime.Parse(StartDate) < DateTime.Today)
+                    {
+                        return "Start date cannot be in the past.";
+                    }
+                    break;
+                case "endDate":
+                    if  (StartDate == "Start Date") 
+                    {
+                        return "Please select start date first";
+                    }
+                    else if(DateTime.Parse(EndDate) <= DateTime.Parse(StartDate) || DateTime.Parse(EndDate) < DateTime.Today)
+                    {
+                        return "End date cannot be before start date.";
+                    }
+                    break;
+                default:
+                    if (string.IsNullOrEmpty(leaveType) || string.IsNullOrEmpty(reason) || StartDate == "Start Date" || EndDate == "End Date") 
+                    {
+                        return "Please fill all data";
+                    }
+                    return string.Empty;
             }
             return string.Empty;
         }
