@@ -28,11 +28,11 @@ namespace MdawemApp.Views
         {
             if (!validate.IsValidPassword(passTxt.Text))
             {
-                passErrorMsg.IsVisible = true;
+                passErrorMsg.Text = "Invalid Password";
             }
             else
             {
-                passErrorMsg.IsVisible = false;
+                passErrorMsg.Text = "          ";
             }
         }
 
@@ -54,7 +54,7 @@ namespace MdawemApp.Views
                     await DisplayAlert("Change Password", "Please enter the password", "OK");
                     return;
                 }
-                if (passErrorMsg.IsVisible == true)
+                if (passErrorMsg.Text == "Invalid Password")
                 {
                     await DisplayAlert("Change Password", "Please enter a valid password", "OK");
                     return;
@@ -100,11 +100,11 @@ namespace MdawemApp.Views
             string confirmPass = confPassTxt.Text;
             if (newPassword != confirmPass)
             {
-                confirmPassErrorMsg.IsVisible = true;
+                confirmPassErrorMsg.Text = "Password does not match";
             }
             else
             {
-                confirmPassErrorMsg.IsVisible = false;
+                confirmPassErrorMsg.Text = "          ";
             }
         }
     }
