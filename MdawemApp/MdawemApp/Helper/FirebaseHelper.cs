@@ -19,14 +19,14 @@ namespace MdawemApp.Helper
 {
     public class FirebaseHelper
     {
-        string webAPIKey = "AIzaSyAUHZ_GtTzLzS64_DhaQsv_5NCo2ynNZeY";
+        string webAPIKey = "AIzaSyAdjO5-0jrB-hKdHrOuo_4lbaHzor0BSYg";
         FirebaseAuthProvider authProvider;
         FirebaseClient client;
 
         public FirebaseHelper()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
-            client = new FirebaseClient("https://mdawemn-default-rtdb.firebaseio.com/");
+            client = new FirebaseClient("https://mdawemfinal-default-rtdb.firebaseio.com/");
         }
 
         public async Task<string> Login(string email, string password)

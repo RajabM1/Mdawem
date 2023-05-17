@@ -143,7 +143,7 @@ namespace MdawemApp.ViewModels
                     _employee.EmploymentStatus = _employmentStatus;
                     var uid = await firebaseHelper.Register(_emailAddress, _password);
                     FirebaseClient client = new FirebaseClient(
-                    "https://mdawemn-default-rtdb.firebaseio.com/");
+                    "https://mdawemfinal-default-rtdb.firebaseio.com/");
 
                     await client.
                         Child("users").
