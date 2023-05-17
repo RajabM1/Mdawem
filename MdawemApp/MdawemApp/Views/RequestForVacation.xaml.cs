@@ -21,11 +21,9 @@ namespace MdawemApp.Views
 
         private bool _isCheckedEndDate = false;
         FirebaseHelper firebaseHelper;
-        private const int MaxDaysAllowed = 14;
 
         public RequestForVacation()
         {
-
             InitializeComponent();
             firebaseHelper = new FirebaseHelper();
         }

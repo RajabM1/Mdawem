@@ -23,18 +23,6 @@ namespace MdawemApp.Views
             fireBase = new FirebaseHelper();
         }
 
-        private void passTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!validate.IsValidPassword(passTxt.Text))
-            {
-                passErrorMsg.Text = "Invalid Password";
-            }
-            else
-            {
-                passErrorMsg.Text = "          ";
-            }
-        }
-
         private async void ResetPassButton_Clicked(object sender, EventArgs e)
         {
             try
@@ -81,11 +69,11 @@ namespace MdawemApp.Views
             }
             catch (Exception ex)
             {
-
+                
             }
         }
 
-        private void confPassTxt_TextChanged(object sender, TextChangedEventArgs e)
+        private void ConfPassTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
             string newPassword = passTxt.Text;
             string confirmPass = confPassTxt.Text;

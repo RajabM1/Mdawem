@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MdawemApp.Views.InternetConnection"
+             Background="white">
+    <ContentPage.Content>
+        <StackLayout Margin="30" Spacing="20" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+            <Image Source="NoWifi.png" WidthRequest="250" HeightRequest="250" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label Text="Please check your internet connection." FontSize="Medium" FontAttributes="Bold" TextColor="#FF5733" HorizontalTextAlignment="Center"/>
+            <Button Text="Try Again" BackgroundColor="#FF5733" TextColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Clicked="TryAgain_Clicked"/> 
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

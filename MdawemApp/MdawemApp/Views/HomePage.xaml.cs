@@ -16,7 +16,6 @@ namespace MdawemApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
-        bool isCheckInTrue = false;
         FirebaseHelper firebaseHelper;
         List<Attendance> Attends = new List<Attendance>();
         List<VactionRequestModel> leave = new List<VactionRequestModel>();
@@ -32,7 +31,6 @@ namespace MdawemApp.Views
         {
             base.OnAppearing();
             NavigationPage.SetHasBackButton(this, false);
-            var UID = Application.Current.Properties["UID"].ToString();
             var infos = await firebaseHelper.GetUserInformation();
             if (!infos.EmploymentStatus)
             {
@@ -94,11 +92,7 @@ namespace MdawemApp.Views
 
         private async void CheckIn_Clicked(object sender, EventArgs e)
         {
-            if (isCheckInTrue)
-            {
-                await DisplayAlert("Alert", "You are already checked in, please check out first", "OK");
-                return;
-            }
+          
             try
             {
                 var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -115,9 +109,15 @@ namespace MdawemApp.Views
                 {
                     var uid = Application.Current.Properties["UID"].ToString();
 
-                    await firebaseHelper.CheckIn(uid, location.Latitude, location.Longitude);
-                    isCheckInTrue = true;
-                    await DisplayAlert("Success", "Check-in Is Done", "OK");
+                    bool CheckStatus = await firebaseHelper.CheckIn(uid, location.Latitude, location.Longitude);
+                    if (CheckStatus)
+                    {
+                        await DisplayAlert("Success", "Check-in Is Done", "OK");
+                    }
+                    else
+                    {
+                        await DisplayAlert("Alert", "You are already checked in, please check out first", "OK");
+                    }
                 }
                 else
                 {
@@ -127,16 +127,10 @@ namespace MdawemApp.Views
             catch (Exception ex)
             {
                 await DisplayAlert("Alert", ex.Message, "OK");
-                isCheckInTrue = false;
             }
         }
         private async void CheckOut_Clicked(object sender, EventArgs e)
         {
-            if (!isCheckInTrue)
-            {
-                await DisplayAlert("Alert", "You are already checked out, please check in first", "OK");
-                return;
-            }
             try
             {
                 var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -151,14 +145,19 @@ namespace MdawemApp.Views
 
                 var location = await Geolocation.GetLocationAsync();
                 var uid = Application.Current.Properties["UID"].ToString();
-                await firebaseHelper.CheckOut(uid);
-                isCheckInTrue = false;
-                await DisplayAlert("Success", "Check-out Is Done", "OK");
+                bool CheckStatus = await firebaseHelper.CheckOut(uid);
+                if (CheckStatus) 
+                {
+                    await DisplayAlert("Success", "Check-out Is Done", "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Alert", "You are already checked out, please check in first", "OK");
+                }
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Alert", ex.Message, "OK");
-                isCheckInTrue = true;
             }
 		}
 

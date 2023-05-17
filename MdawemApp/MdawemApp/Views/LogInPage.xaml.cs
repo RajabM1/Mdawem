@@ -43,12 +43,12 @@ namespace MdawemApp.Views
                 }
             }
         }
-        private async void btnlogin_Clicked(object sender, EventArgs e)
+        private async void Btnlogin_Clicked(object sender, EventArgs e)
         {
             try
             {
                 LogInButton.IsEnabled = false;
-                string email = emailtxt.Text.Trim(); // remove any extra spacing from email
+                string email = emailtxt.Text.Trim(); 
                 string password = passwordtxt.Text;
                 bool rememberMe = RememberMeCheckBox.IsChecked;
                 Application.Current.Properties["emailtxt"] = email;

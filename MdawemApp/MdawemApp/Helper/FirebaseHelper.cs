@@ -26,9 +26,7 @@ namespace MdawemApp.Helper
         public FirebaseHelper()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
-            client = new FirebaseClient(
-        "https://mdawemn-default-rtdb.firebaseio.com/"
-        );
+            client = new FirebaseClient("https://mdawemn-default-rtdb.firebaseio.com/");
         }
 
         public async Task<string> Login(string email, string password)
@@ -77,29 +75,37 @@ namespace MdawemApp.Helper
         {
             try
             {
-                DateTime currentDate = DateTime.Now;
+                string attendanceValue = Preferences.Get("attendanceKey", string.Empty);
+                if (string.IsNullOrEmpty(attendanceValue)) {
+                    DateTime currentDate = DateTime.Now;
 
-                string formattedDateWithOutDay = currentDate.ToString("yyyy/MM");
-                string formattedDate = currentDate.ToString("yyyy/MM/dd");
+                    string formattedDateWithOutDay = currentDate.ToString("yyyy/MM");
+                    string formattedDate = currentDate.ToString("yyyy/MM/dd");
 
-                var AttendanceData = new
+                    var AttendanceData = new
+                    {
+                        Date = formattedDate,
+                        Latitude = latitude,
+                        Longitude = longitude,
+                        TimeIn = currentDate.ToString("hh:mm:ss tt"),
+                        TimeOut = ""
+                    };
+
+                    var result = await client
+                    .Child("users")
+                    .Child(userId)
+                    .Child("Attendance")
+                    .Child(formattedDateWithOutDay)
+                    .PostAsync(AttendanceData);
+                    Preferences.Set("attendanceKey", result.Key);
+
+                    return true;
+                }
+                else
                 {
-                    Date = formattedDate,
-                    Latitude = latitude,
-                    Longitude = longitude,
-                    TimeIn = currentDate.ToString("hh:mm:ss tt"),
-                    TimeOut = ""
-                };
-
-                var result = await client
-                .Child("users")
-                .Child(userId)
-                .Child("Attendance")
-                .Child(formattedDateWithOutDay)
-                .PostAsync(AttendanceData);
-                Preferences.Set("attendanceKey", result.Key);
-
-                return true;
+                    return false;
+                }
+                
             }
             catch (Exception ex)
             {
@@ -113,35 +119,40 @@ namespace MdawemApp.Helper
         {
             try
             {
-                DateTime currentDate = DateTime.Now;
-                string formattedDate = currentDate.ToString("yyyy/MM/dd");
-                string formattedDateWithOutDay = currentDate.ToString("yyyy/MM");
                 string attendanceKey = Preferences.Get("attendanceKey", string.Empty);
-
-                var attendanceSnapshot = await client
-                     .Child("users")
-                     .Child(userId)
-                     .Child("Attendance")
-                     .Child(formattedDateWithOutDay)
-                     .Child(attendanceKey)
-                     .OnceSingleAsync<Dictionary<string, object>>();
-
-                if (attendanceSnapshot != null)
+                if (!string.IsNullOrEmpty(attendanceKey)) 
                 {
+                    DateTime currentDate = DateTime.Now;
+                    string formattedDate = currentDate.ToString("yyyy/MM/dd");
+                    string formattedDateWithOutDay = currentDate.ToString("yyyy/MM");
+                    var attendanceSnapshot = await client
+                         .Child("users")
+                         .Child(userId)
+                         .Child("Attendance")
+                         .Child(formattedDateWithOutDay)
+                         .Child(attendanceKey)
+                         .OnceSingleAsync<Dictionary<string, object>>();
 
-                    var attendanceData = attendanceSnapshot;
-                    attendanceData["TimeOut"] = currentDate.ToString("hh:mm:ss tt");
+                    if (attendanceSnapshot != null)
+                    {
+                        var attendanceData = attendanceSnapshot;
+                        attendanceData["TimeOut"] = currentDate.ToString("hh:mm:ss tt");
 
-                    await client
-                        .Child("users")
-                        .Child(userId)
-                        .Child("Attendance")
-                        .Child(formattedDateWithOutDay)
-                        .Child(attendanceKey)
-                        .PutAsync(attendanceData);
+                        await client
+                            .Child("users")
+                            .Child(userId)
+                            .Child("Attendance")
+                            .Child(formattedDateWithOutDay)
+                            .Child(attendanceKey)
+                            .PutAsync(attendanceData);
+                    }
+                    Preferences.Set("attendanceKey", string.Empty);
+                    return true;
+                } 
+                else 
+                {
+                    return false;
                 }
-                
-               return true;
 			}
             catch (Exception ex)
             {
@@ -430,48 +441,11 @@ namespace MdawemApp.Helper
                 return false;
             }
         }
-       /* public async Task<List<Employee>> GetInfo()
-        {
-            var dataSnapshot = await client.Child("Employee").OnceAsync<object>();
-            if (!dataSnapshot.Any())
-            {
-                return null;
-            }
 
-            var Info = new List<Employee>();
-            foreach (var childSnapshot in dataSnapshot)
-            {
-                var value = childSnapshot.Object;
-                var valueJson = value.ToString();
-                var Infos = JsonConvert.DeserializeObject<Employee>(valueJson);
-
-
-
-                var InfoViewModel = new Employee
-                {
-
-                    FirstName = Infos.FirstName,
-                    Email = Infos.Email,
-                    PhoneNumber = Infos.PhoneNumber,
-
-                };
-                Info.Add(InfoViewModel);
-
-            }
-            return Info;
-        }*/
-        public async Task UpdateEmployee(Employee updatedEmployee)
-        {
-
-            var employeeRef = client.Child("Employee");
-            string employeeJson = JsonConvert.SerializeObject(updatedEmployee);
-            await client.Child("Employee").PutAsync(employeeJson);
-        }
         public async Task<bool> VerifyPassword(string token, string currentPassword)
         {
             try
             {
-                var authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
                 var user = await authProvider.GetUserAsync(token);
                 var userEmail = user.Email;
                 var signInResult = await authProvider.SignInWithEmailAndPasswordAsync(userEmail, currentPassword);

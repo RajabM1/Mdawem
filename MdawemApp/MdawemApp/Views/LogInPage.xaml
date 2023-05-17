@@ -84,7 +84,7 @@
                             BorderWidth="0.1"
                             BorderColor="Black"
                             Margin="3"
-                            Clicked="btnlogin_Clicked"
+                            Clicked="Btnlogin_Clicked"
                             HeightRequest="60"/>
                     <Frame BackgroundColor="Transparent" HeightRequest="50"/>
                     <ActivityIndicator x:Name="activityIndicator" IsRunning="False" IsVisible="false" />

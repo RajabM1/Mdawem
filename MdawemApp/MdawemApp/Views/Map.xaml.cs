@@ -25,8 +25,6 @@ namespace MdawemApp.Views
             _userRepo = new FirebaseHelper();
 
             DisplayDeviceLocation();
-
-
         }
         private async void DisplayDeviceLocation()
         {

@@ -28,7 +28,6 @@ namespace MdawemApp.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            var UID = Application.Current.Properties["UID"].ToString();
             var infos = await firebaseHelper.GetUserInformation();
             
             if (infos.EmploymentStatus)
@@ -55,8 +54,7 @@ namespace MdawemApp.Views
         private async void LogOut_Clicked(object sender, EventArgs e)
         {
            firebaseHelper.SignOut();
-           await Application.Current.MainPage.Navigation.PushAsync(new LogInPage());
-
+           await Application.Current.MainPage.Navigation.PopToRootAsync();
         }
     }
 
